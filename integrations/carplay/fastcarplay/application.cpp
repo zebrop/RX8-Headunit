@@ -293,3 +293,16 @@ QImage Application::currentFrame() const
 
     return _interface->currentImage();
 }
+
+bool Application::phoneConnected() const
+{
+    return _protocol && _protocol->state() == PROTOCOL_STATUS_CONNECTED;
+}
+
+std::string Application::phoneName() const
+{
+    if (!_protocol)
+        return "";
+
+    return _protocol->phoneName();
+}

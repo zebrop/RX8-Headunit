@@ -45,6 +45,9 @@ public:
     bool isActive() const { return _active; }
     QImage currentFrame() const;
 
+    bool phoneConnected() const;
+    std::string phoneName() const;
+
 private:
     struct State
     {

@@ -72,6 +72,9 @@ Window {
             onPerformanceClicked: root.showPerformance()
             onThemesClicked: root.showThemes()
             onSettingsClicked: root.showSettings()
+            
+            phoneConnected: typeof carPlayEngine !== "undefined" && carPlayEngine.phoneConnected
+            phoneName: phoneConnected ? carPlayEngine.phoneName : ""
         }
     }
 

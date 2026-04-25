@@ -94,6 +94,7 @@ void CarPlayEngine::pumpOnce()
 
     try {
         m_app->tick();
+        syncPhoneStatus();
 
         const QImage latest = m_app->currentFrame();
         if (!latest.isNull())
@@ -215,6 +216,10 @@ bool CarPlayEngine::start(const QString &settingsPath)
 
     m_running = true;
 
+    m_phoneConnected = false;
+    m_phoneName.clear();
+    emit phoneStatusChanged();
+
     emit runningChanged();
     emit frameChanged();
 
@@ -241,8 +246,45 @@ void CarPlayEngine::stop()
     m_running = false;
     m_pumpPending = false;
 
+    const bool statusWasChanged = m_phoneConnected || !m_phoneName.isEmpty();
+    m_phoneConnected = false;
+    m_phoneName.clear();
+
+    if (statusWasChanged)
+        emit phoneStatusChanged();
+
     emit frameChanged();
 
     if (wasRunning)
         emit runningChanged();
+}
+
+bool CarPlayEngine::phoneConnected() const
+{
+    return m_phoneConnected;
+}
+
+QString CarPlayEngine::phoneName() const
+{
+    return m_phoneName;
+}
+
+void CarPlayEngine::syncPhoneStatus()
+{
+    const bool connected = m_app && m_app->phoneConnected();
+    const QString name = connected
+        ? QString::fromStdString(m_app->phoneName()).trimmed()
+        : QString();
+
+    const QString safeName = name.isEmpty() || name == "phone"
+        ? QStringLiteral("iPhone")
+        : name;
+
+    if (m_phoneConnected == connected && m_phoneName == safeName)
+        return;
+
+    m_phoneConnected = connected;
+    m_phoneName = safeName;
+
+    emit phoneStatusChanged();
 }

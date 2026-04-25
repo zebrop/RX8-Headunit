@@ -31,6 +31,8 @@ void CarPlayView::setFrame(const QImage &frame)
     if (m_frame.cacheKey() == frame.cacheKey())
         return;
 
+    const bool hadFrame = hasFrame();
+
     m_frame = frame;
     m_frameDirty = true;
     m_geometryDirty = true;
@@ -40,7 +42,9 @@ void CarPlayView::setFrame(const QImage &frame)
 
     updateContentRect();
 
-    emit frameChanged();
+    if (hadFrame != hasFrame())
+        emit frameChanged();
+
     update();
 }
 
@@ -76,7 +80,6 @@ void CarPlayView::setEngine(CarPlayEngine *engine)
     emit engineChanged();
     emit frameChanged();
     emit contentRectChanged();
-
     update();
 }
 
@@ -102,6 +105,7 @@ void CarPlayView::syncFrameFromEngine()
 
     m_lastFrameSerial = serial;
 
+    const bool hadFrame = hasFrame();
     const QImage newFrame = m_engine->currentFrame();
 
     if (newFrame.isNull()) {
@@ -111,9 +115,10 @@ void CarPlayView::syncFrameFromEngine()
         m_frameDirty = true;
         m_geometryDirty = true;
 
-        emit frameChanged();
-        emit contentRectChanged();
+        if (hadFrame != hasFrame())
+            emit frameChanged();
 
+        emit contentRectChanged();
         update();
         return;
     }
@@ -127,7 +132,9 @@ void CarPlayView::syncFrameFromEngine()
 
     updateContentRect();
 
-    emit frameChanged();
+    if (hadFrame != hasFrame())
+        emit frameChanged();
+
     update();
 }
 
@@ -138,7 +145,6 @@ QRectF CarPlayView::calculateContentRect() const
 
     const QSizeF frameSize(m_frame.width(), m_frame.height());
     const QSizeF itemSize(width(), height());
-
     const QSizeF scaledSize = frameSize.scaled(itemSize, Qt::KeepAspectRatio);
 
     const qreal x = (itemSize.width() - scaledSize.width()) / 2.0;
@@ -217,6 +223,8 @@ QSGNode *CarPlayView::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *)
 
 void CarPlayView::releaseResources()
 {
+    const bool hadFrame = hasFrame();
+
     m_lastFrameSerial = 0;
     m_frame = QImage();
     m_textureSize = QSize();
@@ -224,6 +232,8 @@ void CarPlayView::releaseResources()
     m_frameDirty = true;
     m_geometryDirty = true;
 
-    emit frameChanged();
+    if (hadFrame != hasFrame())
+        emit frameChanged();
+
     emit contentRectChanged();
 }

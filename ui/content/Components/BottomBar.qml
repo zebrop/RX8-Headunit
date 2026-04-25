@@ -28,6 +28,9 @@ Rectangle {
     property url mediaIconSource: ""
     property url themesIconSource: ""
     property url settingsIconSource: ""
+    property bool phoneConnected: false
+    property string phoneName: ""
+    property color phoneConnectedColor: "#4DA3FF"
 
     function formattedTime() {
         return Qt.formatTime(new Date(), "h:mm AP")
@@ -65,8 +68,8 @@ Rectangle {
             Layout.preferredWidth: 180
             Layout.fillHeight: true
 
-            property bool phoneConnected: false
-            property string phoneName: "iPhone 13"
+            property bool phoneConnected: rectangle.phoneConnected
+            property string phoneName: rectangle.phoneName
 
             Column {
                 anchors.centerIn: parent
@@ -103,7 +106,7 @@ Rectangle {
 
                     Text {
                         text: infoBox.phoneConnected ? infoBox.phoneName : qsTr("Disconnected")
-                        color: infoBox.phoneConnected ? Theme.success : Theme.danger
+                        color: infoBox.phoneConnected ? rectangle.phoneConnectedColor : Theme.danger
                         font.pixelSize: Theme.infoStatusSize
                         elide: Text.ElideRight
                     }

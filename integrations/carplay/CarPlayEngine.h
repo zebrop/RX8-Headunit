@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QImage>
+#include <QString>
 
 #include <memory>
 
@@ -19,6 +20,9 @@ class CarPlayEngine : public QObject
     Q_PROPERTY(bool hasFrame READ hasFrame NOTIFY frameChanged)
     Q_PROPERTY(bool running READ running NOTIFY runningChanged)
 
+    Q_PROPERTY(bool phoneConnected READ phoneConnected NOTIFY phoneStatusChanged)
+    Q_PROPERTY(QString phoneName READ phoneName NOTIFY phoneStatusChanged)
+
 public:
     explicit CarPlayEngine(QObject *parent = nullptr);
     ~CarPlayEngine() override;
@@ -34,22 +38,30 @@ public:
     Q_INVOKABLE void keyRelease(int key);
 
     bool running() const;
+
     QImage frame() const;
     QImage currentFrame() const;
+
     int frameWidth() const;
     int frameHeight() const;
     quint64 frameSerial() const;
     bool hasFrame() const;
 
+    bool phoneConnected() const;
+    QString phoneName() const;
+
 signals:
     void runningChanged();
     void frameChanged();
+    void phoneStatusChanged();
     void errorMessage(const QString &message);
 
 private:
     void updateFrame(const QImage &frame);
     void pumpOnce();
     void schedulePump();
+    void syncPhoneStatus();
+    void resetPhoneStatus();
 
 private:
     QTimer *m_tickTimer = nullptr;
@@ -60,4 +72,7 @@ private:
 
     bool m_running = false;
     bool m_pumpPending = false;
+
+    bool m_phoneConnected = false;
+    QString m_phoneName;
 };
