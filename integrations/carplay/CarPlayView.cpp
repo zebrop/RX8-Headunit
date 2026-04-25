@@ -199,15 +199,10 @@ QSGNode *CarPlayView::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *)
         if (!newTexture)
             return node;
 
-        QSGTexture *oldTexture = node->texture();
-
         node->setTexture(newTexture);
         node->setFiltering(QSGTexture::Linear);
         node->uploadedFrameSerial = m_lastFrameSerial;
         node->uploadedTextureSize = m_frame.size();
-
-        if (oldTexture && oldTexture != newTexture)
-            delete oldTexture;
 
         m_frameDirty = false;
     }
