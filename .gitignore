@@ -1,0 +1,8 @@
+build/
+.qtcreator/
+**/.qtcreator/
+*.user
+*.autosave
+*.bak
+*.qtds
+CMakeUserPresets.json

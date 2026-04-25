@@ -1,0 +1,54 @@
+##############################################################################
+# RX8 Head Unit - CarPlay Runtime Settings
+##############################################################################
+
+############################
+# CORE RESOLUTION (USED BY BOTH)
+############################
+
+width = 1280
+height = 720
+
+############################
+# LOGGING
+############################
+
+# 0 - none, 1 - errors, 2 - warnings, 3+ = verbose
+log-level = 1
+
+############################
+# PERFORMANCE / LATENCY
+############################
+
+hw-decode = true
+
+# Frame buffering (latency vs smoothness)
+rendering-buffer = 3
+draw-skip-events = 5
+force-redraw = 1
+
+############################
+# VIDEO / AUDIO BUFFERS
+############################
+
+video-buffer-size = 32
+
+audio-buffer-size = 64
+audio-buffer-wait = 2
+audio-buffer-wait-call = 6
+
+############################
+# ANDROID AUTO COMPATIBILITY
+############################
+
+# 1 = 800x480
+# 2 = 1280x720
+# 3 = 1920x1080
+android-resolution = 2
+
+############################
+# DECODER TUNING (LOW LATENCY)
+############################
+
+decode-low-delay = true
+decode-fast = true

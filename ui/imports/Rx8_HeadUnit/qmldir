@@ -1,0 +1,6 @@
+module Rx8_HeadUnit
+singleton Theme 1.0 Theme.qml
+Constants 1.0 Constants.qml
+DirectoryFontLoader 1.0 DirectoryFontLoader.qml
+EventListModel 1.0 EventListModel.qml
+EventListSimulator 1.0 EventListSimulator.qml
