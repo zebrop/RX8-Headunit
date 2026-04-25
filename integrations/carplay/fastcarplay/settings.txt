@@ -20,12 +20,12 @@ log-level = 1
 # PERFORMANCE / LATENCY
 ############################
 
-hw-decode = true
+hw-decode = false
 
 # Frame buffering (latency vs smoothness)
-rendering-buffer = 3
-draw-skip-events = 5
-force-redraw = 1
+rendering-buffer = 2
+draw-skip-events = 1
+force-redraw = 0
 
 ############################
 # VIDEO / AUDIO BUFFERS

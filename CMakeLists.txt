@@ -74,14 +74,14 @@ add_custom_command(
 
 set(APP_SOURCES
     app/main.cpp
-    app/CarPlayConfig.cpp
-    app/CarPlayConfig.h
     app/app_environment.h
     app/import_qml_components_plugins.h
     Rx8_HeadUnit.qrc
 )
 
 set(CARPLAY_SOURCES
+    integrations/carplay/CarPlayConfig.cpp
+    integrations/carplay/CarPlayConfig.h
     integrations/carplay/CarPlayEngine.cpp
     integrations/carplay/CarPlayEngine.h
     integrations/carplay/CarPlayView.cpp

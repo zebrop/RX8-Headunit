@@ -113,7 +113,6 @@ AppleCarPlayForm {
         CarPlayView {
             id: carPlayView
             anchors.fill: parent
-            layer.enabled: true
             engine: hasCarPlayEngine ? carPlayEngine : null
         }
 
