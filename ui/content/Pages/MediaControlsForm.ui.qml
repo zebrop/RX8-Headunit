@@ -7,7 +7,7 @@ Rectangle {
     width: Constants.width
     height: Constants.height
     opacity: 1
-    color: Constants.backgroundColor
+    color: "#2a2a2a"
 
     property alias trebleDownButton: trebleDownButton
     property alias trebleUpButton: trebleUpButton

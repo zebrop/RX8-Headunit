@@ -10,7 +10,7 @@ Item {
     property real value: 50
     property real stepSize: 1
 
-    property bool vertical: false
+    property bool vertical: true
     property bool gradientFill: false
 
     property color trackColor: "#2b2b2b"
@@ -23,75 +23,88 @@ Item {
 
     signal valueChangedByUser(real value)
 
-    implicitWidth: vertical ? 70 : 320
-    implicitHeight: vertical ? 320 : 70
+    implicitWidth: 42
+    implicitHeight: 320
 
-    readonly property real range: Math.max(0.0001, to - from)
-    readonly property real normalisedValue: Math.max(0, Math.min(1, (value - from) / range))
+    readonly property real range: Math.max(0.0001, root.to - root.from)
+    readonly property real normalisedValue: Math.max(0, Math.min(1, (root.value - root.from) / root.range))
+
+    readonly property real trackThickness: root.width
+    readonly property real handleSize: root.width
+    readonly property real handleInset: root.handleSize / 2
+    readonly property real usableLength: Math.max(1, track.height - root.handleSize)
+
+    readonly property real handleCenterY: track.y + root.handleInset
+                                          + root.usableLength * (1.0 - root.normalisedValue)
 
     function setFromPosition(mouseX, mouseY) {
-        var raw
+        var raw = 1.0 - Math.max(0, Math.min(1, (mouseY - root.handleInset) / root.usableLength))
 
-        if (vertical)
-            raw = 1.0 - Math.max(0, Math.min(1, mouseY / height))
-        else
-            raw = Math.max(0, Math.min(1, mouseX / width))
+        var newValue = root.from + raw * root.range
 
-        var newValue = from + raw * range
+        if (root.stepSize > 0)
+            newValue = Math.round(newValue / root.stepSize) * root.stepSize
 
-        if (stepSize > 0)
-            newValue = Math.round(newValue / stepSize) * stepSize
-
-        value = Math.max(from, Math.min(to, newValue))
-        valueChangedByUser(value)
+        root.value = Math.max(root.from, Math.min(root.to, newValue))
+        root.valueChangedByUser(root.value)
     }
 
     Rectangle {
         id: track
+
         anchors.centerIn: parent
-        width: root.vertical ? 18 : parent.width
-        height: root.vertical ? parent.height : 18
-        radius: 9
+
+        width: root.trackThickness
+        height: root.height
+
+        radius: width / 2
         color: root.trackColor
     }
 
     Item {
         id: fillClip
 
-        x: root.vertical ? track.x : track.x
-        y: root.vertical ? track.y + track.height * (1.0 - root.normalisedValue) : track.y
-        width: root.vertical ? track.width : track.width * root.normalisedValue
-        height: root.vertical ? track.height * root.normalisedValue : track.height
+        x: track.x
+        y: root.handleCenterY
+
+        width: track.width
+        height: track.y + track.height - root.handleCenterY
 
         clip: true
 
         Rectangle {
-            anchors.fill: parent
-            radius: 9
+            x: 0
+            y: -(fillClip.y - track.y)
+
+            width: track.width
+            height: track.height
+
+            radius: track.radius
             color: root.fillColor
             visible: !root.gradientFill
         }
 
         Rectangle {
-            radius: 9
+            x: 0
+            y: -(fillClip.y - track.y)
+
+            width: track.width
+            height: track.height
+
+            radius: track.radius
             visible: root.gradientFill
 
-            x: root.vertical ? 0 : 0
-            y: root.vertical ? -track.height * (1.0 - root.normalisedValue) : 0
-            width: root.vertical ? track.width : track.width
-            height: root.vertical ? track.height : track.height
-
             gradient: Gradient {
-                orientation: root.vertical ? Gradient.Vertical : Gradient.Horizontal
+                orientation: Gradient.Vertical
 
                 GradientStop {
                     position: 0.0
-                    color: root.vertical ? root.hotColor : root.coldColor
+                    color: root.hotColor
                 }
 
                 GradientStop {
                     position: 1.0
-                    color: root.vertical ? root.coldColor : root.hotColor
+                    color: root.coldColor
                 }
             }
         }
@@ -99,17 +112,13 @@ Item {
 
     Rectangle {
         id: handle
-        width: 42
-        height: 42
+
+        width: root.handleSize
+        height: root.handleSize
         radius: width / 2
 
-        x: root.vertical
-           ? track.x + track.width / 2 - width / 2
-           : track.x + track.width * root.normalisedValue - width / 2
-
-        y: root.vertical
-           ? track.y + track.height * (1.0 - root.normalisedValue) - height / 2
-           : track.y + track.height / 2 - height / 2
+        x: track.x + track.width / 2 - width / 2
+        y: root.handleCenterY - height / 2
 
         color: root.handleColor
         border.width: 3
@@ -119,8 +128,11 @@ Item {
     MouseArea {
         anchors.fill: parent
 
-        onPressed: root.setFromPosition(mouse.x, mouse.y)
-        onPositionChanged: {
+        onPressed: function(mouse) {
+            root.setFromPosition(mouse.x, mouse.y)
+        }
+
+        onPositionChanged: function(mouse) {
             if (pressed)
                 root.setFromPosition(mouse.x, mouse.y)
         }

@@ -39,5 +39,7 @@ QtObject {
     readonly property int infoDateSize: 16
     readonly property int infoStatusSize: 16
 
+    readonly property color accentColor: "#73fafd"
+
     readonly property url acPageBackground: Qt.resolvedUrl("../../assets/backgrounds/simple_dark.jpg")
 }
