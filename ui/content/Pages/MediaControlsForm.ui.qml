@@ -1,197 +1,159 @@
 import QtQuick 6.8
 import QtQuick.Controls 6.8
+import QtQuick.Effects
 import Rx8_HeadUnit
 import "../Components"
 
 Rectangle {
-    width: Constants.width
-    height: Constants.height
+    width: 1280
+    height: 800
     opacity: 1
     color: "#2a2a2a"
 
-    property alias trebleDownButton: trebleDownButton
-    property alias trebleUpButton: trebleUpButton
-    property alias trebleSlider: trebleSlider
-    property alias midDownButton: midDownButton
-    property alias midUpButton: midUpButton
-    property alias midSlider: midSlider
-    property alias baseDownButton: baseDownButton
-    property alias baseUpButton: baseUpButton
-    property alias baseSlider: baseSlider
-    property alias volumeDownButton: volumeDownButton
-    property alias volumeUpButton: volumeUpButton
+    Image {
+        id: pageBackground
+        anchors.fill: parent
+        anchors.leftMargin: 4
+        anchors.rightMargin: -4
+        anchors.topMargin: 0
+        anchors.bottomMargin: 0
+        source: Theme.acPageBackground
+        fillMode: Image.PreserveAspectCrop
+        smooth: true
+        asynchronous: true
+        visible: status === Image.Ready
+
+        Text {
+            id: text6
+            x: 35
+            y: 585
+            width: 203
+            height: 82
+
+            readonly property int leftPercent: Math.round(
+                                                   (1.0 - xyPad.xValue) * 50.0)
+            readonly property int rightPercent: Math.round(
+                                                    (1.0 + xyPad.xValue) * 50.0)
+
+            text: qsTr("Balance  L / R\n" + leftPercent + "% / " + rightPercent + "%")
+
+            font.pixelSize: 22
+            font.bold: true
+            color: "#FFFFFF"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        Text {
+            id: text7
+            x: 237
+            y: 585
+            width: 203
+            height: 82
+
+            readonly property int frontPercent: Math.round(
+                                                    (1.0 + xyPad.yValue) * 50.0)
+            readonly property int rearPercent: Math.round(
+                                                   (1.0 - xyPad.yValue) * 50.0)
+
+            text: qsTr("Fade  F / R\n" + frontPercent + "% / " + rearPercent + "%")
+
+            font.pixelSize: 22
+            font.bold: true
+            color: "#FFFFFF"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
     property alias volumeSlider: volumeSlider
     property alias addPresetButton: addPresetButton
     property alias presetRepeater: presetRepeater
     property alias listView: listView
 
-    property var presetModel: ["Flat", "Bass Boost", "Treble Boost", "Rock", "Pop", "Jazz", "Classical", "Vocal", "Electronic", "Hip Hop", "Dance", "R&B", "Podcast", "Movie", "Live", "Acoustic", "Loudness", "Custom"]
+    property url interiorSource: Qt.resolvedUrl("../../assets/Car/interior.png")
 
-    Text {
-        text: qsTr("Media Page")
-        anchors.verticalCenterOffset: -383
-        anchors.horizontalCenterOffset: 3
-        anchors.centerIn: parent
-        font.family: Constants.font.family
-    }
+    property var presetModel: ["Flat", "Bass Boost", "Treble Boost", "Rock", "Pop", "Jazz", "Classical", "Vocal", "Electronic", "Hip Hop", "Dance", "R&B", "Podcast", "Movie", "Live", "Acoustic", "Loudness", "Custom"]
 
     XyPad {
         id: xyPad
         x: 38
-
         y: 38
         width: 407
-        height: 499
+        height: 535
+        snapStep: 10
     }
 
-    Slider {
-        id: baseSlider
-        orientation: Qt.Vertical
-        x: 561
-        y: 80
-        width: 20
-        height: 400
-        snapMode: RangeSlider.SnapOnRelease
-        stepSize: 1
-        to: 10
-        value: 5
-    }
+    EqualizerPanel {
+        id: equalizer
+        x: 463
+        y: 35
+        width: 566
+        height: 521
 
-    Slider {
-        id: trebleSlider
-        orientation: Qt.Vertical
-        x: 881
-        y: 80
-        width: 20
-        height: 400
-        stepSize: 1
-        snapMode: RangeSlider.SnapOnRelease
-        to: 10
-        value: 5
-    }
-
-    Slider {
-        id: midSlider
-        orientation: Qt.Vertical
-        x: 721
-        y: 80
-        width: 20
-        height: 400
-        snapMode: RangeSlider.SnapOnRelease
-        stepSize: 1
-        to: 10
-        value: 5
-    }
-
-    RoundButton {
-        id: baseUpButton
-        x: 545
-        y: 30
-        text: "+"
-    }
-
-    RoundButton {
-        id: midUpButton
-        x: 705
-        y: 28
-        text: "+"
-    }
-
-    RoundButton {
-        id: trebleUpButton
-        x: 865
-        y: 30
-        text: "+"
-    }
-
-    RoundButton {
-        id: trebleDownButton
-        x: 865
-        y: 479
-        text: "-"
-    }
-
-    RoundButton {
-        id: midDownButton
-        x: 705
-        y: 479
-        text: "-"
-    }
-
-    RoundButton {
-        id: baseDownButton
-        x: 545
-        y: 481
-        text: "-"
+        sliderSpacing: 160
+        bellWidthFactor: 0.14
+        curveAggressiveness: 1.2
+        masterAnimationDuration: 120
     }
 
     Text {
         id: text1
-        x: 549
-        y: 539
+        x: 565
+        y: 47
         text: qsTr("Base")
         font.pixelSize: 21
+        color: "#FFFFFF"
     }
 
     Text {
         id: text2
-        x: 713
-        y: 539
+        x: 729
+        y: 47
         text: qsTr("Mid")
         font.pixelSize: 21
+        color: "#FFFFFF"
     }
 
     Text {
         id: text3
-        x: 861
-        y: 539
+        x: 880
+        y: 47
         text: qsTr("Treble")
+        color: "#FFFFFF"
         font.pixelSize: 21
     }
 
-    Slider {
+    AcSlider {
         id: volumeSlider
-        x: 193
-        y: 586
-        width: 895
-        height: 48
+        x: 463
+        y: 619
+        width: 787
+        height: 30
         value: 15
         stepSize: 1
-        snapMode: RangeSlider.SnapOnRelease
-        to: 30
-    }
-
-    RoundButton {
-        id: volumeUpButton
-        x: 1093
-        y: 584
-        text: "+"
-        rotation: -0.043
-    }
-
-    RoundButton {
-        id: volumeDownButton
-        x: 145
-        y: 584
-        text: "-"
+        vertical: false
+        gradientFill: true
+        useAccentGradient: true
     }
 
     Text {
         id: text4
-        x: 603
-        y: 624
-        width: 74
-        height: 26
+        x: 804
+        y: 562
+        width: 105
+        height: 34
         text: qsTr("Volume")
-        font.pixelSize: 21
+        font.pixelSize: 30
+        color: "#FFFFFF"
     }
 
     Item {
         id: listView
-        x: 1019
-        y: 99
-        width: 200
-        height: 400
+        x: 1070
+        y: 120
+        width: 180
+        height: 380
 
         property int currentIndex: 0
 
@@ -251,18 +213,18 @@ Rectangle {
 
     Button {
         id: addPresetButton
-        x: 1019
-        y: 489
-        width: 200
+        x: 1070
+        y: 482
+        width: 180
         height: 50
         text: qsTr("Add Preset")
     }
 
     Text {
         id: text5
-        width: 200
-        x: 1019
-        y: 32
+        width: 180
+        x: 1070
+        y: 47
         text: qsTr("Presets")
         color: "white"
         font.pixelSize: 22

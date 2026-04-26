@@ -121,6 +121,7 @@ Rectangle {
         value: 22
         stepSize: 1
         gradientFill: true
+        useAccentGradient: false
         vertical: true
     }
 
@@ -135,6 +136,8 @@ Rectangle {
         value: 0
         stepSize: 1
         vertical: true
+        gradientFill: true
+        useAccentGradient: true
     }
 
     Text {

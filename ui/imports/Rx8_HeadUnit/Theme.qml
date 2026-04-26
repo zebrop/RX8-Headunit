@@ -28,7 +28,7 @@ QtObject {
     readonly property color sliderHandle: "#d8d8d8"
 
     readonly property int radiusSmall: 8
-    readonly property int radiusMedium: 10
+    readonly property int radiusMedium: 10  
     readonly property int radiusLarge: 14
 
     readonly property int navIconSize: 90
@@ -42,4 +42,5 @@ QtObject {
     readonly property color accentColor: "#73fafd"
 
     readonly property url acPageBackground: Qt.resolvedUrl("../../assets/backgrounds/simple_dark.jpg")
+    readonly property url mediaPageBackground: Qt.resolvedUrl("../../assets/backgrounds/simple_dark.jpg")
 }
