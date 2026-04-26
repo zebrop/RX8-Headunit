@@ -16,7 +16,6 @@ AppleCarPlayForm {
     property real lastTouchX: 0
     property real lastTouchY: 0
 
-    // 🔥 NEW: correct mapping using contentRect
     function mapToFrameX(x) {
         if (!readyForInput)
             return 0

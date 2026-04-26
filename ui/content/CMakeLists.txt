@@ -41,6 +41,9 @@ qt6_add_qml_module(content
         Components/StatusChip.qml
         Components/VolumeOverlay.qml
         Components/XyPad.qml
+        Components/AcButton.qml
+        Components/AcSwitch.qml
+        Components/AcSlider.qml
 
     RESOURCES
         fonts/fonts.txt
@@ -53,5 +56,6 @@ qt6_add_qml_module(content
         ../assets/Icons/Default/Themes.png
         ../assets/Icons/Default/Settings.png
         ../assets/Icons/Default/Volume.png
+        ../assets/backgrounds/simple_dark.jpg
 
 )

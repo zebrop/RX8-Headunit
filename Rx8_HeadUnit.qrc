@@ -4,6 +4,9 @@
         <file>integrations/carplay/fastcarplay/resource/font.ttf</file>
         <file>ui/assets/qtquickcontrols2.conf</file>
         <file>ui/content/App.qml</file>
+        <file>ui/content/Components/AcButton.qml</file>
+        <file>ui/content/Components/AcSlider.qml</file>
+        <file>ui/content/Components/AcSwitch.qml</file>
         <file>ui/content/Components/ActionButton.qml</file>
         <file>ui/content/Components/BottomBar.qml</file>
         <file>ui/content/Components/IconLabel.qml</file>

@@ -1,240 +1,230 @@
 
-
 /*
-This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio only.
-It is supposed to be strictly declarative and only uses a subset of QML. If you edit
-this file manually, you might introduce QML code that is not supported by Qt Design Studio.
-Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on .ui.qml files.
+UI ONLY FILE — Qt Design Studio compatible
 */
 import QtQuick 6.8
 import QtQuick.Controls 6.8
 import Rx8_HeadUnit
+import "../Components"
 
 Rectangle {
-    width: Constants.width
-    height: Constants.height
+    id: root
 
+    width: 1280
+    height: 800
     color: Constants.backgroundColor
 
-    Text {
-        text: qsTr("A/C Page")
-        anchors.verticalCenterOffset: -110
-        anchors.horizontalCenterOffset: -20
-        anchors.centerIn: parent
-        font.family: Constants.font.family
+    Image {
+        id: pageBackground
+        anchors.fill: parent
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
+        anchors.topMargin: 0
+        anchors.bottomMargin: 0
+        source: Theme.acPageBackground
+        fillMode: Image.PreserveAspectCrop
+        smooth: true
+        asynchronous: true
+        visible: status === Image.Ready
     }
 
-    ButtonGroup {
-        id: airflowModeGroup
-        exclusive: true
+    Rectangle {
+        anchors.fill: parent
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
+        anchors.topMargin: 0
+        anchors.bottomMargin: 0
+        color: Constants.backgroundColor
+        visible: pageBackground.status !== Image.Ready
     }
 
-    Slider {
-        id: slider
-        x: 697
-        y: 113
+    // ===== EXPOSE COMPONENTS TO LOGIC FILE =====
+    property alias faceButton: faceButton
+    property alias faceFeetButton: faceFeetButton
+    property alias feetButton: feetButton
+    property alias feetDemistButton: feetDemistButton
+    property alias demistFrontButton: demistFrontButton
+
+    property alias temperatureSlider: temperatureSlider
+    property alias fanSlider: fanSlider
+
+    property alias autoButton: autoButton
+    property alias acButton: acButton
+    property alias recircSwitch: recircSwitch
+    property alias rearDemistButton: rearDemistButton
+    property alias powerButton: powerButton
+
+    // ===== TOP MODE BUTTONS =====
+    AcButton {
+        x: 8
+        y: 17
+        width: 110
+        height: 58
+        text: qsTr("ECO")
+        checkable: true
+    }
+    AcButton {
+        x: 8
+        y: 92
+        width: 110
+        height: 58
+        text: qsTr("Ambient")
+        checkable: true
+    }
+    AcButton {
+        x: 8
+        y: 168
+        width: 110
+        height: 58
+        text: qsTr("Normal")
+        checkable: true
+        checked: true
+    }
+
+    // ===== SLIDERS =====
+    AcSlider {
+        id: temperatureSlider
+        x: 135
+        y: 249
         width: 500
         height: 50
-        stepSize: 1
-        orientation: Qt.Horizontal
-        to: 16
-        value: 0
+        from: 16
+        to: 30
+        value: 22
+        stepSize: 0.5
+        gradientFill: true
     }
 
-    Slider {
-        id: slider1
-        x: 86
-        y: 113
+    AcSlider {
+        id: fanSlider
+        x: 715
+        y: 249
         width: 500
         height: 50
-        orientation: Qt.Horizontal
-        stepSize: 1
-        snapMode: RangeSlider.SnapOnRelease
+        from: 0
         to: 7
         value: 0
+        stepSize: 1
     }
 
-    Button {
-        id: button
-        x: 987
-        y: 364
-        width: 150
-        height: 100
-        text: qsTr("Demist Front")
-        checkable: true
-        ButtonGroup.group: airflowModeGroup
+    Text {
+        x: 275
+        y: 212
+        text: qsTr("Temperature")
+        color: Theme.textPrimary
+        font.family: Constants.font.family
+        font.pixelSize: 20
     }
 
-    Button {
-        id: button1
-        x: 821
-        y: 590
-        checkable: true
+    Text {
+        x: 898
+        y: 212
+        text: qsTr("Fan Speed")
+        color: Theme.textPrimary
+        font.family: Constants.font.family
+        font.pixelSize: 20
     }
 
-    Switch {
-        id: switch1
-        x: 529
-        y: 586
-        width: 229
-        height: 28
-    }
-
-    Button {
-        id: button3
+    // ===== AIRFLOW BUTTONS =====
+    AcButton {
+        id: faceButton
         x: 140
         y: 364
         width: 150
         height: 100
         text: qsTr("Face")
         checkable: true
-        ButtonGroup.group: airflowModeGroup
     }
-
-    Button {
-        id: button4
-        x: 569
-        y: 364
-        width: 150
-        height: 100
-        text: qsTr("Feet")
-        checkable: true
-        ButtonGroup.group: airflowModeGroup
-    }
-
-    Button {
-        id: button5
+    AcButton {
+        id: faceFeetButton
         x: 354
         y: 364
         width: 150
         height: 100
         text: qsTr("Face/Feet")
         checkable: true
-        ButtonGroup.group: airflowModeGroup
     }
-
-    Button {
-        id: button6
+    AcButton {
+        id: feetButton
+        x: 569
+        y: 364
+        width: 150
+        height: 100
+        text: qsTr("Feet")
+        checkable: true
+    }
+    AcButton {
+        id: feetDemistButton
         x: 786
         y: 364
         width: 150
         height: 100
         text: qsTr("Feet/Demist")
         checkable: true
-        ButtonGroup.group: airflowModeGroup
+    }
+    AcButton {
+        id: demistFrontButton
+        x: 987
+        y: 364
+        width: 150
+        height: 100
+        text: qsTr("Demist Front")
+        checkable: true
     }
 
-    Button {
-        id: button9
-        x: 8
-        y: 17
-        text: qsTr("ECO")
-    }
-
-    Button {
-        id: button10
-        x: 280
-        y: 17
-        text: qsTr("Normal Operation")
-    }
-
-    Button {
-        id: button11
-        x: 128
-        y: 17
-        text: qsTr("Ambient Mode")
-    }
-
-    Text {
-        id: text1
-        x: 898
-        y: 212
-        width: 98
-        height: 29
-        text: qsTr("Fan Speed")
-        font.pixelSize: 20
-    }
-
-    Text {
-        id: text2
-        x: 275
-        y: 212
-        width: 121
-        height: 29
-        text: qsTr("Temperature")
-        font.pixelSize: 20
-    }
-
-    Text {
-        id: text3
-        x: 580
-        y: 558
-        width: 121
-        height: 29
-        text: qsTr("Recirc/Fresh")
-        font.pixelSize: 20
-    }
-
-    Switch {
-        id: switch2
-        x: 314
-        y: 586
-        width: 229
-        height: 28
-    }
-
-    Text {
-        id: text4
-        x: 410
-        y: 558
-        width: 37
-        height: 29
-        text: qsTr("A/C")
-        font.pixelSize: 20
-    }
-
-    Switch {
-        id: switch3
-        x: 100
-        y: 586
-        width: 229
-        height: 28
-    }
-
-    Text {
-        id: text5
-        x: 189
-        y: 558
-        width: 51
-        height: 29
+    // ===== SWITCHES =====
+    AcButton {
+        id: autoButton
+        x: 390
+        y: 562
+        width: 114
+        height: 72
         text: qsTr("AUTO")
-        font.pixelSize: 20
+        checkable: true
     }
-
-    Text {
-        id: text6
-        x: 809
-        y: 555
-        width: 121
-        height: 29
-        text: qsTr("Demist Rear")
-        font.pixelSize: 20
-    }
-
-    Button {
-        id: button12
-        x: 1022
-        y: 590
+    AcButton {
+        id: acButton
+        x: 587
+        y: 562
+        width: 114
+        height: 72
+        text: qsTr("A/C")
         checkable: true
     }
 
     Text {
-        id: text7
-        x: 1032
-        y: 555
-        width: 60
-        height: 29
-        text: qsTr("Power")
+        x: 689
+        y: 120
+        text: qsTr("Recirc/Fresh")
+        color: Theme.textPrimary
         font.pixelSize: 20
+    }
+    AcSwitch {
+        id: recircSwitch
+        x: 696
+        y: 28
+        width: 113
+        height: 72
+    }
+
+    // ===== EXTRA =====
+    AcButton {
+        id: rearDemistButton
+        x: 786
+        y: 562
+        width: 114
+        height: 72
+        text: qsTr("Demist Rear")
+        checkable: true
+    }
+    AcButton {
+        id: powerButton
+        x: 1106
+        y: 28
+        width: 150
+        height: 72
+        text: qsTr("Power")
+        checkable: true
+        checked: true
     }
 }
