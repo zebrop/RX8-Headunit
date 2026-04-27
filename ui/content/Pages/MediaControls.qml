@@ -33,6 +33,20 @@ MediaControlsForm {
         property string hiddenDefaultPresetNamesJson: "[]"
     }
 
+    Timer {
+        id: saveDebounceTimer
+        interval: 120
+        repeat: false
+        onTriggered: saveCurrentStateImmediate()
+    }
+
+    function scheduleSave() {
+        if (isLoadingState)
+            return
+
+        saveDebounceTimer.restart()
+    }
+
     function safeNumber(value, fallback) {
         const n = Number(value)
         return isNaN(n) ? fallback : n
@@ -63,6 +77,19 @@ MediaControlsForm {
         }
 
         return []
+    }
+
+    function hiddenDefaultPresetNames() {
+        try {
+            const parsed = JSON.parse(mediaSettings.hiddenDefaultPresetNamesJson)
+            return parsed || []
+        } catch (e) {
+            return []
+        }
+    }
+
+    function saveHiddenDefaultPresetNames(names) {
+        mediaSettings.hiddenDefaultPresetNamesJson = JSON.stringify(names)
     }
 
     function loadCustomPreset() {
@@ -111,10 +138,10 @@ MediaControlsForm {
     }
 
     function currentPreset() {
-        if (presetList.currentIndex < 0 || presetList.currentIndex >= presetModel.length)
+        if (currentPresetIndex < 0 || currentPresetIndex >= presetModel.length)
             return null
 
-        return presetModel[presetList.currentIndex]
+        return presetModel[currentPresetIndex]
     }
 
     function setEqualizerValues(bass, mid, treble) {
@@ -136,14 +163,14 @@ MediaControlsForm {
         if (index < 0 || index >= presetModel.length)
             return
 
-        presetList.currentIndex = index
+        currentPresetIndex = index
 
         if (applyEq) {
             const preset = presetModel[index]
             setEqualizerValues(preset.bass, preset.mid, preset.treble)
         }
 
-        saveCurrentState()
+        scheduleSave()
     }
 
     function makeUniquePresetName(baseName) {
@@ -200,7 +227,7 @@ MediaControlsForm {
         })
     }
 
-    function saveCurrentState() {
+    function saveCurrentStateImmediate() {
         if (isLoadingState)
             return
 
@@ -235,16 +262,20 @@ MediaControlsForm {
         }
 
         presetModel = copy
-        presetList.currentIndex = idx
-        Qt.callLater(connectPresetButtons)
+        currentPresetIndex = idx
     }
 
     function selectCustomFromManualEqChange() {
         if (isLoadingState || isApplyingPreset)
             return
 
+        const idx = customPresetIndex()
+        if (idx < 0)
+            return
+
         updateCustomPresetFromCurrentEq()
-        saveCurrentState()
+        currentPresetIndex = idx
+        scheduleSave()
     }
 
     function addCurrentPreset(name) {
@@ -263,7 +294,7 @@ MediaControlsForm {
 
         presetModel = copy
         selectPreset(insertIndex, false)
-        Qt.callLater(connectPresetButtons)
+        saveCurrentStateImmediate()
     }
 
     function deletePreset(index) {
@@ -272,11 +303,9 @@ MediaControlsForm {
 
         const preset = presetModel[index]
 
-        // Custom can never be deleted
         if (preset.name === customPresetName)
             return
 
-        // Built-in presets are deletable, but we remember them as hidden
         if (preset.deletable !== true) {
             const hiddenNames = hiddenDefaultPresetNames()
 
@@ -286,58 +315,19 @@ MediaControlsForm {
             }
         }
 
-        const wasSelected = index === presetList.currentIndex
+        const wasSelected = index === currentPresetIndex
         const copy = presetModel.slice()
         copy.splice(index, 1)
         presetModel = copy
 
         if (wasSelected) {
             const customIdx = customPresetIndex()
-            selectPreset(customIdx >= 0 ? customIdx : 0, false)
-        } else if (presetList.currentIndex > index) {
-            presetList.currentIndex -= 1
-            saveCurrentState()
-        } else {
-            saveCurrentState()
+            currentPresetIndex = customIdx >= 0 ? customIdx : 0
+        } else if (currentPresetIndex > index) {
+            currentPresetIndex -= 1
         }
 
-        Qt.callLater(connectPresetButtons)
-    }
-
-    function connectPresetButtons() {
-        for (let i = 0; i < presetRepeater.count; ++i) {
-            const item = presetRepeater.itemAt(i)
-
-            if (!item || item._connected)
-                continue
-
-            item._connected = true
-
-            if (item.presetButton) {
-                item.presetButton.clicked.connect(function() {
-                    selectPreset(i, true)
-                })
-            }
-
-            if (item.deletePresetButton) {
-                item.deletePresetButton.clicked.connect(function() {
-                    deletePreset(i)
-                })
-            }
-        }
-    }
-
-    function hiddenDefaultPresetNames() {
-        try {
-            const parsed = JSON.parse(mediaSettings.hiddenDefaultPresetNamesJson)
-            return parsed || []
-        } catch (e) {
-            return []
-        }
-    }
-
-    function saveHiddenDefaultPresetNames(names) {
-        mediaSettings.hiddenDefaultPresetNamesJson = JSON.stringify(names)
+        saveCurrentStateImmediate()
     }
 
     function loadState() {
@@ -359,12 +349,34 @@ MediaControlsForm {
         if (selectedIndex < 0)
             selectedIndex = 0
 
-        presetList.currentIndex = selectedIndex
+        currentPresetIndex = selectedIndex
 
         isLoadingState = false
+        saveCurrentStateImmediate()
+    }
 
-        Qt.callLater(connectPresetButtons)
-        saveCurrentState()
+    Connections {
+        target: presetBox
+
+        function onPresetClicked(index) {
+            selectPreset(index, true)
+        }
+
+        function onDeleteRequested(index) {
+            deletePreset(index)
+        }
+
+        function onAddRequested() {
+            addPresetPopup.openForNewPreset()
+        }
+    }
+
+    Connections {
+        target: addPresetPopup
+
+        function onAccepted(name) {
+            addCurrentPreset(name)
+        }
     }
 
     Connections {
@@ -387,7 +399,7 @@ MediaControlsForm {
         target: volumeSlider
 
         function onValueChanged() {
-            saveCurrentState()
+            scheduleSave()
         }
     }
 
@@ -395,59 +407,13 @@ MediaControlsForm {
         target: xyPad
 
         function onXValueChanged() {
-            saveCurrentState()
+            scheduleSave()
         }
 
         function onYValueChanged() {
-            saveCurrentState()
+            scheduleSave()
         }
     }
-
-    Connections {
-        target: addPresetButton
-
-        function onClicked() {
-            presetNameField.text = ""
-            addPresetPopup.open()
-            presetNameField.forceActiveFocus()
-        }
-    }
-
-    Connections {
-        target: deletePresetModeButton
-
-        function onClicked() {
-            deleteMode = !deleteMode
-        }
-    }
-
-    Connections {
-        target: savePresetButton
-
-        function onClicked() {
-            addCurrentPreset(presetNameField.text)
-            addPresetPopup.close()
-        }
-    }
-
-    Connections {
-        target: cancelPresetButton
-
-        function onClicked() {
-            addPresetPopup.close()
-        }
-    }
-
-    Connections {
-        target: presetNameField
-
-        function onAccepted() {
-            addCurrentPreset(presetNameField.text)
-            addPresetPopup.close()
-        }
-    }
-
-    onPresetModelChanged: Qt.callLater(connectPresetButtons)
 
     Component.onCompleted: loadState()
 }

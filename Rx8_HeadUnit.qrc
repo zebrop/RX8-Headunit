@@ -8,12 +8,14 @@
         <file>ui/content/Components/AcSlider.qml</file>
         <file>ui/content/Components/AcSwitch.qml</file>
         <file>ui/content/Components/ActionButton.qml</file>
+        <file>ui/content/Components/AddPresetPopup.qml</file>
         <file>ui/content/Components/BottomBar.qml</file>
         <file>ui/content/Components/EqualizerPanel.qml</file>
         <file>ui/content/Components/EqualizerSlider.qml</file>
         <file>ui/content/Components/IconLabel.qml</file>
         <file>ui/content/Components/NavButton.qml</file>
         <file>ui/content/Components/PanelBox.qml</file>
+        <file>ui/content/Components/PresetBox.qml</file>
         <file>ui/content/Components/StatusChip.qml</file>
         <file>ui/content/Components/SwitchControl.qml</file>
         <file>ui/content/Components/ToggleButton.qml</file>
