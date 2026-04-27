@@ -72,9 +72,20 @@ Item {
         repaintPending = true
     }
 
+    function forceCurvePaint() {
+        repaintPending = false
+        eqCanvas.requestPaint()
+    }
+
     onBassVisualValueChanged: requestCurvePaint()
     onMidVisualValueChanged: requestCurvePaint()
     onTrebleVisualValueChanged: requestCurvePaint()
+    onAccentColorChanged: requestCurvePaint()
+    onBassColorChanged: requestCurvePaint()
+    onMidColorChanged: requestCurvePaint()
+    onTrebleColorChanged: requestCurvePaint()
+    onBellOpacityChanged: requestCurvePaint()
+    onBellGlowOpacityChanged: requestCurvePaint()
     onSliderSpacingChanged: requestCurvePaint()
     onBellWidthFactorChanged: requestCurvePaint()
     onCurveAggressivenessChanged: requestCurvePaint()

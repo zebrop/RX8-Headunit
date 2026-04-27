@@ -30,7 +30,7 @@ Rectangle {
     property url settingsIconSource: ""
     property bool phoneConnected: false
     property string phoneName: ""
-    property color phoneConnectedColor: "#4DA3FF"
+    property color phoneConnectedColor: Theme.accentColor
 
     function formattedTime() {
         return Qt.formatTime(new Date(), "h:mm AP")

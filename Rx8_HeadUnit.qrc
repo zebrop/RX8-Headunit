@@ -1,6 +1,29 @@
 <RCC>
     <qresource>
         <file>Rx8_HeadUnit.qmlproject</file>
+        <file>assets/backgrounds/simple_dark.jpg</file>
+        <file>assets/car/interior.png</file>
+        <file>assets/car/interior.svg</file>
+        <file>assets/car/interior_Full.png</file>
+        <file>assets/icons/AC.svg</file>
+        <file>assets/icons/AirConditioning.png</file>
+        <file>assets/icons/Auto.svg</file>
+        <file>assets/icons/CarPlay.png</file>
+        <file>assets/icons/Demist.svg</file>
+        <file>assets/icons/Face.svg</file>
+        <file>assets/icons/Face_Feet.svg</file>
+        <file>assets/icons/Feet.svg</file>
+        <file>assets/icons/Feet_Demist.svg</file>
+        <file>assets/icons/Fresh.svg</file>
+        <file>assets/icons/Home.png</file>
+        <file>assets/icons/Media.png</file>
+        <file>assets/icons/Performance.png</file>
+        <file>assets/icons/Power.svg</file>
+        <file>assets/icons/Rear_Demist.svg</file>
+        <file>assets/icons/Recirc.svg</file>
+        <file>assets/icons/Settings.png</file>
+        <file>assets/icons/Themes.png</file>
+        <file>assets/icons/Volume.png</file>
         <file>assets/qtquickcontrols2.conf</file>
         <file>qml/App.qml</file>
         <file>qml/components/AcButton.qml</file>
@@ -17,6 +40,7 @@
         <file>qml/components/PresetBox.qml</file>
         <file>qml/components/StatusChip.qml</file>
         <file>qml/components/SwitchControl.qml</file>
+        <file>qml/components/ThemeButton.qml</file>
         <file>qml/components/ToggleButton.qml</file>
         <file>qml/components/VerticalSlider.qml</file>
         <file>qml/components/VolumeOverlay.qml</file>

@@ -1,74 +1,67 @@
-
-
-/*
-This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio only.
-It is supposed to be strictly declarative and only uses a subset of QML. If you edit
-this file manually, you might introduce QML code that is not supported by Qt Design Studio.
-Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on .ui.qml files.
-*/
+/* UI ONLY FILE — Qt Design Studio compatible. */
 import QtQuick 6.8
 import QtQuick.Controls 6.8
 import Rx8_HeadUnit
+import "../components"
 
 Rectangle {
+    id: root
     width: Constants.width
     height: Constants.height
+    color: Theme.backgroundColor
 
-    color: Constants.backgroundColor
+    signal themeRequested(int index)
+    signal editThemesRequested()
 
-    Text {
-        text: qsTr("Themes Page")
-        anchors.verticalCenterOffset: 0
-        anchors.horizontalCenterOffset: 0
-        anchors.centerIn: parent
-        font.family: Constants.font.family
+    Image {
+        id: pageBackground
+        anchors.fill: parent
+        source: Theme.themesPageBackground
+        fillMode: Image.PreserveAspectCrop
+        smooth: true
+        asynchronous: true
+        visible: status === Image.Ready
     }
 
-    Rectangle {
-        id: rectangle1
-        x: 665
-        y: 30
-        width: 575
-        height: 300
-        color: "#00000000"
-        radius: 30
-        border.color: "#00ffff"
-        border.width: 4
-    }
-
-    Rectangle {
-        id: rectangle3
+    ThemeButton {
+        id: cyanButton
         x: 40
         y: 30
-        width: 575
-        height: 300
-        color: "#00000000"
-        radius: 30
-        border.color: "#00ffff"
-        border.width: 4
+        buttonText: Theme.themeAt(0).name
+        glowColor: Theme.themeAt(0).accent
+        imageSource: Theme.themeAt(0).previewImage
+        selected: Theme.currentTheme === Theme.themeAt(0).id
+        onClicked: root.themeRequested(0)
     }
 
-    Rectangle {
-        id: rectangle2
+    ThemeButton {
+        id: purpleButton
         x: 665
-        y: 360
-        width: 575
-        height: 300
-        color: "#00000000"
-        radius: 30
-        border.color: "#00ffff"
-        border.width: 4
+        y: 30
+        buttonText: Theme.themeAt(1).name
+        glowColor: Theme.themeAt(1).accent
+        imageSource: Theme.themeAt(1).previewImage
+        selected: Theme.currentTheme === Theme.themeAt(1).id
+        onClicked: root.themeRequested(1)
     }
 
-    Rectangle {
-        id: rectangle4
+    ThemeButton {
+        id: greenButton
         x: 40
         y: 360
-        width: 575
-        height: 300
-        color: "#00000000"
-        radius: 30
-        border.color: "#00ffff"
-        border.width: 4
+        buttonText: Theme.themeAt(2).name
+        glowColor: Theme.themeAt(2).accent
+        imageSource: Theme.themeAt(2).previewImage
+        selected: Theme.currentTheme === Theme.themeAt(2).id
+        onClicked: root.themeRequested(2)
+    }
+
+    ThemeButton {
+        id: editButton
+        x: 665
+        y: 360
+        buttonText: "Edit Themes"
+        glowColor: Theme.accentColor
+        onClicked: root.editThemesRequested()
     }
 }

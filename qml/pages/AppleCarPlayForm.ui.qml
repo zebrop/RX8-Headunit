@@ -12,12 +12,22 @@ Rectangle {
     width: Constants.width
     height: Constants.height
 
-    color: Constants.backgroundColor
+    color: Theme.backgroundColor
+
+    Image {
+        id: pageBackground
+        anchors.fill: parent
+        source: Theme.appleCarPlayPageBackground
+        fillMode: Image.PreserveAspectCrop
+        smooth: true
+        asynchronous: true
+        visible: status === Image.Ready
+    }
 
     Rectangle {
         id: carPlayHost
         anchors.fill: parent
-        color: "black"
+        color: "transparent"
         border.width: 0
         radius: 0
     }

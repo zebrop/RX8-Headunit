@@ -13,6 +13,31 @@ set_source_files_properties(
     PROPERTIES QT_RESOURCE_ALIAS assets/backgrounds/simple_dark.jpg
 )
 
+set_source_files_properties(../assets/icons/Home.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Home.png
+)
+set_source_files_properties(../assets/icons/CarPlay.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/CarPlay.png
+)
+set_source_files_properties(../assets/icons/AirConditioning.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/AirConditioning.png
+)
+set_source_files_properties(../assets/icons/Performance.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Performance.png
+)
+set_source_files_properties(../assets/icons/Media.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Media.png
+)
+set_source_files_properties(../assets/icons/Themes.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Themes.png
+)
+set_source_files_properties(../assets/icons/Settings.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Settings.png
+)
+set_source_files_properties(../assets/icons/Volume.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Volume.png
+)
+
 qt6_add_qml_module(content
     URI "content"
     VERSION 1.0
@@ -48,6 +73,7 @@ qt6_add_qml_module(content
         components/StatusChip.qml
         components/VolumeOverlay.qml
         components/XyPad.qml
+        components/ThemeButton.qml
         components/AcButton.qml
         components/AcSwitch.qml
         components/AcSlider.qml

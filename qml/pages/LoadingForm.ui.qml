@@ -14,11 +14,22 @@ Rectangle {
     width: Constants.width
     height: Constants.height
 
-    color: Constants.backgroundColor
+    color: Theme.backgroundColor
+
+    Image {
+        id: pageBackground
+        anchors.fill: parent
+        source: Theme.loadingPageBackground
+        fillMode: Image.PreserveAspectCrop
+        smooth: true
+        asynchronous: true
+        visible: status === Image.Ready
+    }
 
     Text {
         text: qsTr("Loading Page")
         anchors.centerIn: parent
         font.family: Constants.font.family
+        color: Theme.textPrimary
     }
 }

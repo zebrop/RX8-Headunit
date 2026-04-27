@@ -154,7 +154,7 @@ MediaControlsForm {
         equalizer.bassVisualValue = bass
         equalizer.midVisualValue = mid
         equalizer.trebleVisualValue = treble
-        equalizer.requestCurvePaint()
+        equalizer.forceCurvePaint()
 
         isApplyingPreset = false
     }

@@ -10,7 +10,7 @@ Rectangle {
     width: 1280
     height: 800
     opacity: 1
-    color: "#2a2a2a"
+    color: Theme.backgroundColor
 
     property alias volumeSlider: volumeSlider
     property alias xyPad: xyPad
@@ -31,7 +31,7 @@ Rectangle {
         anchors.rightMargin: -4
         anchors.topMargin: 0
         anchors.bottomMargin: 0
-        source: Qt.resolvedUrl("../../assets/backgrounds/simple_dark.jpg")
+        source: Theme.mediaPageBackground
         fillMode: Image.PreserveAspectCrop
         smooth: true
         asynchronous: true

@@ -13,7 +13,7 @@ Rectangle {
 
     width: 1280
     height: 800
-    color: Constants.backgroundColor
+    color: Theme.backgroundColor
 
     Image {
         id: pageBackground
@@ -22,7 +22,7 @@ Rectangle {
         anchors.rightMargin: 0
         anchors.topMargin: 0
         anchors.bottomMargin: 0
-        source: Qt.resolvedUrl("../../assets/backgrounds/simple_dark.jpg")
+        source: Theme.acPageBackground
         fillMode: Image.PreserveAspectCrop
         smooth: true
         asynchronous: true
@@ -84,7 +84,7 @@ Rectangle {
         anchors.rightMargin: 72
         anchors.topMargin: 0
         anchors.bottomMargin: 0
-        color: Constants.backgroundColor
+        color: Theme.backgroundColor
         visible: pageBackground.status !== Image.Ready
     }
 

@@ -14,7 +14,7 @@ Item {
     property real liveValue: value
     property real stepSize: 1
 
-    property color accentColor: "#28dfff"
+    property color accentColor: Theme.accentColor
     property color textColor: "#ffffff"
 
     property int trackWidth: 30
@@ -30,6 +30,9 @@ Item {
 
     property bool drawBell: true
     property bool showValueText: true
+
+    property bool repaintPending: true
+    property int repaintIntervalMs: 33
 
     signal valueChangedByUser(real value)
 
@@ -49,16 +52,33 @@ Item {
         if (!dragArea.pressed)
             liveValue = value
 
-        bellCanvas.requestPaint()
+        requestBellPaint()
     }
 
-    onLiveValueChanged: bellCanvas.requestPaint()
-    onAccentColorChanged: bellCanvas.requestPaint()
-    onWidthChanged: bellCanvas.requestPaint()
-    onHeightChanged: bellCanvas.requestPaint()
-    onDrawBellChanged: bellCanvas.requestPaint()
-    onTopMarginChanged: bellCanvas.requestPaint()
-    onBottomMarginChanged: bellCanvas.requestPaint()
+    onLiveValueChanged: requestBellPaint()
+    onAccentColorChanged: requestBellPaint()
+    onWidthChanged: requestBellPaint()
+    onHeightChanged: requestBellPaint()
+    onDrawBellChanged: requestBellPaint()
+    onTopMarginChanged: requestBellPaint()
+    onBottomMarginChanged: requestBellPaint()
+
+    function requestBellPaint() {
+        repaintPending = true
+    }
+
+    Timer {
+        interval: root.repaintIntervalMs
+        running: true
+        repeat: true
+
+        onTriggered: {
+            if (root.repaintPending) {
+                root.repaintPending = false
+                bellCanvas.requestPaint()
+            }
+        }
+    }
 
     Canvas {
         id: bellCanvas
@@ -106,7 +126,7 @@ Item {
             ctx.beginPath()
             ctx.moveTo(0, cy)
 
-            for (var x = 0; x <= width; x += 2) {
+            for (var x = 0; x <= width; x += 4) {
                 var falloff = bellFalloff(x)
                 var y = cy - amp * falloff
                 ctx.lineTo(x, y)
@@ -121,7 +141,7 @@ Item {
             ctx.beginPath()
             ctx.moveTo(0, cy)
 
-            for (var x2 = 0; x2 <= width; x2 += 2) {
+            for (var x2 = 0; x2 <= width; x2 += 4) {
                 var falloff2 = bellFalloff(x2)
                 var y2 = cy - amp * falloff2
                 ctx.lineTo(x2, y2)
