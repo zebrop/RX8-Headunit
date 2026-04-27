@@ -47,6 +47,10 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    QCoreApplication::setOrganizationName(QStringLiteral("asrs-automation"));
+    QCoreApplication::setOrganizationDomain(QStringLiteral("asrs-automation.local"));
+    QCoreApplication::setApplicationName(QStringLiteral("Rx8_HeadUnit"));
+
     qmlRegisterType<CarPlayView>("CarPlay", 1, 0, "CarPlayView");
 
     QQmlApplicationEngine engine;

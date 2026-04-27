@@ -7,6 +7,12 @@ set_source_files_properties(../assets/qtquickcontrols2.conf
 )
 
 qt_add_library(content STATIC)
+
+set_source_files_properties(
+    ../assets/backgrounds/simple_dark.jpg
+    PROPERTIES QT_RESOURCE_ALIAS assets/backgrounds/simple_dark.jpg
+)
+
 qt6_add_qml_module(content
     URI "content"
     VERSION 1.0
@@ -44,6 +50,7 @@ qt6_add_qml_module(content
         Components/AcButton.qml
         Components/AcSwitch.qml
         Components/AcSlider.qml
+        Data/MediaPresets.js
 
     RESOURCES
         fonts/fonts.txt
@@ -56,6 +63,6 @@ qt6_add_qml_module(content
         ../assets/Icons/Default/Themes.png
         ../assets/Icons/Default/Settings.png
         ../assets/Icons/Default/Volume.png
-        ../assets/backgrounds/simple_dark.jpg
+        ../assets/backgrounds/simple_dark.jpg   
 
 )

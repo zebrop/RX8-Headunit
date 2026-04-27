@@ -73,8 +73,10 @@ Window {
             onThemesClicked: root.showThemes()
             onSettingsClicked: root.showSettings()
             
-            phoneConnected: typeof carPlayEngine !== "undefined" && carPlayEngine.phoneConnected
-            phoneName: phoneConnected ? carPlayEngine.phoneName : ""
+            readonly property var safeCarPlayEngine: typeof carPlayEngine !== "undefined" ? carPlayEngine : null
+
+            phoneConnected: safeCarPlayEngine !== null && safeCarPlayEngine.phoneConnected
+            phoneName: phoneConnected && safeCarPlayEngine !== null ? safeCarPlayEngine.phoneName : ""
         }
     }
 

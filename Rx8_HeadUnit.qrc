@@ -20,6 +20,7 @@
         <file>ui/content/Components/VerticalSlider.qml</file>
         <file>ui/content/Components/VolumeOverlay.qml</file>
         <file>ui/content/Components/XyPad.qml</file>
+        <file>ui/content/Data/MediaPresets.js</file>
         <file>ui/content/Pages/AirConditioning.qml</file>
         <file>ui/content/Pages/AirConditioningForm.ui.qml</file>
         <file>ui/content/Pages/AppleCarPlay.qml</file>

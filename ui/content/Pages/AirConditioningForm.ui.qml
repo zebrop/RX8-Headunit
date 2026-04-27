@@ -22,7 +22,7 @@ Rectangle {
         anchors.rightMargin: 0
         anchors.topMargin: 0
         anchors.bottomMargin: 0
-        source: Theme.acPageBackground
+        source: Qt.resolvedUrl("../../assets/backgrounds/simple_dark.jpg")
         fillMode: Image.PreserveAspectCrop
         smooth: true
         asynchronous: true

@@ -28,7 +28,7 @@ QtObject {
     readonly property color sliderHandle: "#d8d8d8"
 
     readonly property int radiusSmall: 8
-    readonly property int radiusMedium: 10  
+    readonly property int radiusMedium: 10
     readonly property int radiusLarge: 14
 
     readonly property int navIconSize: 90

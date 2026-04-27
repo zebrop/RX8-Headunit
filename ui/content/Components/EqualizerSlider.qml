@@ -213,9 +213,8 @@ Item {
             var snapped = Math.round(root.liveValue / root.stepSize) * root.stepSize
             snapped = Math.max(root.from, Math.min(root.to, snapped))
 
-            root.value = snapped
             root.liveValue = snapped
-            root.valueChangedByUser(root.value)
+            root.valueChangedByUser(snapped)
         }
 
         function updateLiveValue(localY) {
