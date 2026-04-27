@@ -1,7 +1,7 @@
 import QtQuick 6.8
 import QtQuick.Controls 6.8
 import QtCore as QtCore
-import "../Data/MediaPresets.js" as MediaPresets
+import "../data/MediaPresets.js" as MediaPresets
 
 MediaControlsForm {
     id: root
@@ -12,7 +12,7 @@ MediaControlsForm {
     property bool isLoadingState: true
     property bool isApplyingPreset: false
 
-    property url interiorSource: Qt.resolvedUrl("../../assets/Car/interior.png")
+    property url interiorSource: Qt.resolvedUrl("../../assets/car/interior.png")
 
     QtCore.Settings {
         id: mediaSettings
@@ -247,24 +247,6 @@ MediaControlsForm {
         saveCustomPreset()
     }
 
-    function updateCustomPresetFromCurrentEq() {
-        const idx = customPresetIndex()
-        if (idx < 0)
-            return
-
-        const copy = presetModel.slice()
-        copy[idx] = {
-            "name": customPresetName,
-            "bass": equalizer.bassValue,
-            "mid": equalizer.midValue,
-            "treble": equalizer.trebleValue,
-            "deletable": false
-        }
-
-        presetModel = copy
-        currentPresetIndex = idx
-    }
-
     function selectCustomFromManualEqChange() {
         if (isLoadingState || isApplyingPreset)
             return
@@ -273,7 +255,11 @@ MediaControlsForm {
         if (idx < 0)
             return
 
-        updateCustomPresetFromCurrentEq()
+        // Mutate in-place — no array reassignment, so ListView never rebuilds its delegates
+        presetModel[idx].bass = equalizer.bassValue
+        presetModel[idx].mid = equalizer.midValue
+        presetModel[idx].treble = equalizer.trebleValue
+
         currentPresetIndex = idx
         scheduleSave()
     }

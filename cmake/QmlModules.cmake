@@ -13,8 +13,8 @@ qt6_add_qml_module(${CMAKE_PROJECT_NAME}
         main.qml
 )
 
-add_subdirectory(ui/content)
-add_subdirectory(ui/imports)
+add_subdirectory(qml)
+add_subdirectory(qml/modules)
 
 
 

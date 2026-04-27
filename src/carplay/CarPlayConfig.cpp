@@ -23,7 +23,7 @@ QStringList candidateSettingsPaths()
         QDir(appDir).absoluteFilePath("carplay/settings.txt"),
         QDir(appConfigDir).absoluteFilePath("settings.txt"),
         QDir(appConfigDir).absoluteFilePath("carplay/settings.txt"),
-        QDir(appDir).absoluteFilePath("../../integrations/carplay/fastcarplay/settings.txt"),
+        QDir(appDir).absoluteFilePath("../../src/carplay/settings.txt"),
         QDir(appDir).absoluteFilePath("../Resources/settings.txt")
     };
 }

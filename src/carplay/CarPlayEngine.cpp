@@ -8,9 +8,8 @@
 #include <algorithm>
 #include <exception>
 
-// FastCarPlay
-#include "fastcarplay/application.h"
-#include "fastcarplay/settings.h"
+#include "application.h"
+#include "settings.h"
 
 namespace {
 constexpr int kTickIntervalMs = 8;

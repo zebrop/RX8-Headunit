@@ -6,7 +6,7 @@ import QtQuick 6.8
 import QtQuick.Controls 6.8
 import Rx8_HeadUnit
 import QtQuick.Shapes 6.8
-import "../Components"
+import "../components"
 
 Rectangle {
     id: root

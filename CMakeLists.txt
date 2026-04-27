@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(BUILD_QDS_COMPONENTS ON CACHE BOOL "Build design studio components")
 option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
@@ -44,28 +45,28 @@ pkg_check_modules(SWRESAMPLE REQUIRED libswresample)
 find_program(XXD_EXECUTABLE xxd REQUIRED)
 
 # --------------------------------------------------
-# FastCarPlay resources
+# CarPlay embedded resources (font + background)
 # --------------------------------------------------
 
-set(FASTCARPLAY_RESOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/integrations/carplay/fastcarplay/resource)
-set(FASTCARPLAY_AUTOGEN_DIR ${CMAKE_CURRENT_BINARY_DIR}/fastcarplay_autogen)
+set(CARPLAY_RESOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/carplay/resource)
+set(CARPLAY_AUTOGEN_DIR ${CMAKE_CURRENT_BINARY_DIR}/carplay_autogen)
 
-file(MAKE_DIRECTORY ${FASTCARPLAY_AUTOGEN_DIR})
+file(MAKE_DIRECTORY ${CARPLAY_AUTOGEN_DIR})
 
 add_custom_command(
-    OUTPUT ${FASTCARPLAY_AUTOGEN_DIR}/font_data.cpp
+    OUTPUT ${CARPLAY_AUTOGEN_DIR}/font_data.cpp
     COMMAND ${XXD_EXECUTABLE} -i -n font
-            ${FASTCARPLAY_RESOURCE_DIR}/font.ttf
-            ${FASTCARPLAY_AUTOGEN_DIR}/font_data.cpp
-    DEPENDS ${FASTCARPLAY_RESOURCE_DIR}/font.ttf
+            ${CARPLAY_RESOURCE_DIR}/font.ttf
+            ${CARPLAY_AUTOGEN_DIR}/font_data.cpp
+    DEPENDS ${CARPLAY_RESOURCE_DIR}/font.ttf
 )
 
 add_custom_command(
-    OUTPUT ${FASTCARPLAY_AUTOGEN_DIR}/background_data.cpp
+    OUTPUT ${CARPLAY_AUTOGEN_DIR}/background_data.cpp
     COMMAND ${XXD_EXECUTABLE} -i -n background
-            ${FASTCARPLAY_RESOURCE_DIR}/background.bmp
-            ${FASTCARPLAY_AUTOGEN_DIR}/background_data.cpp
-    DEPENDS ${FASTCARPLAY_RESOURCE_DIR}/background.bmp
+            ${CARPLAY_RESOURCE_DIR}/background.bmp
+            ${CARPLAY_AUTOGEN_DIR}/background_data.cpp
+    DEPENDS ${CARPLAY_RESOURCE_DIR}/background.bmp
 )
 
 # --------------------------------------------------
@@ -73,46 +74,46 @@ add_custom_command(
 # --------------------------------------------------
 
 set(APP_SOURCES
-    app/main.cpp
-    app/app_environment.h
-    app/import_qml_components_plugins.h
+    src/main.cpp
+    src/app_environment.h
+    src/import_qml_components_plugins.h
     Rx8_HeadUnit.qrc
 )
 
 set(CARPLAY_SOURCES
-    integrations/carplay/CarPlayConfig.cpp
-    integrations/carplay/CarPlayConfig.h
-    integrations/carplay/CarPlayEngine.cpp
-    integrations/carplay/CarPlayEngine.h
-    integrations/carplay/CarPlayView.cpp
-    integrations/carplay/CarPlayView.h
-)
+    src/carplay/CarPlayConfig.cpp
+    src/carplay/CarPlayConfig.h
+    src/carplay/CarPlayEngine.cpp
+    src/carplay/CarPlayEngine.h
+    src/carplay/CarPlayView.cpp
+    src/carplay/CarPlayView.h
 
-set(FASTCARPLAY_SOURCES
-    integrations/carplay/fastcarplay/application.cpp
-    integrations/carplay/fastcarplay/application.h
-    integrations/carplay/fastcarplay/decoder.cpp
-    integrations/carplay/fastcarplay/decoder.h
-    integrations/carplay/fastcarplay/interface.cpp
-    integrations/carplay/fastcarplay/interface.h
-    integrations/carplay/fastcarplay/pcm_audio.cpp
-    integrations/carplay/fastcarplay/pcm_audio.h
-    integrations/carplay/fastcarplay/recorder.cpp
-    integrations/carplay/fastcarplay/recorder.h
-    integrations/carplay/fastcarplay/renderer.cpp
-    integrations/carplay/fastcarplay/renderer.h
-    integrations/carplay/fastcarplay/settings.cpp
-    integrations/carplay/fastcarplay/settings.h
+    src/carplay/application.cpp
+    src/carplay/application.h
+    src/carplay/decoder.cpp
+    src/carplay/decoder.h
+    src/carplay/interface.cpp
+    src/carplay/interface.h
+    src/carplay/pcm_audio.cpp
+    src/carplay/pcm_audio.h
+    src/carplay/pipe_listener.cpp
+    src/carplay/pipe_listener.h
+    src/carplay/recorder.cpp
+    src/carplay/recorder.h
+    src/carplay/renderer.cpp
+    src/carplay/renderer.h
+    src/carplay/settings.cpp
+    src/carplay/settings.h
 
-    integrations/carplay/fastcarplay/common/logger.cpp
-    integrations/carplay/fastcarplay/common/logger.h
+    src/carplay/common/logger.cpp
+    src/carplay/common/logger.h
 
-    integrations/carplay/fastcarplay/protocol/aes_cipher.cpp
-    integrations/carplay/fastcarplay/protocol/connection.cpp
-    integrations/carplay/fastcarplay/protocol/usb_buffer.cpp
+    src/carplay/protocol/aes_cipher.cpp
+    src/carplay/protocol/connection.cpp
+    src/carplay/protocol/usb_buffer.cpp
 
-    ${FASTCARPLAY_AUTOGEN_DIR}/font_data.cpp
-    ${FASTCARPLAY_AUTOGEN_DIR}/background_data.cpp
+    ${CARPLAY_AUTOGEN_DIR}/font_data.cpp
+    ${CARPLAY_AUTOGEN_DIR}/background_data.cpp
 )
 
 # --------------------------------------------------
@@ -122,7 +123,6 @@ set(FASTCARPLAY_SOURCES
 qt_add_executable(${CMAKE_PROJECT_NAME}
     ${APP_SOURCES}
     ${CARPLAY_SOURCES}
-    ${FASTCARPLAY_SOURCES}
 )
 
 qt6_standard_project_setup()
@@ -132,9 +132,8 @@ qt6_standard_project_setup()
 # --------------------------------------------------
 
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/app
-    ${CMAKE_CURRENT_SOURCE_DIR}/integrations/carplay
-    ${CMAKE_CURRENT_SOURCE_DIR}/integrations/carplay/fastcarplay
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/carplay
 
     ${LIBUSB_INCLUDE_DIRS}
     ${AVCODEC_INCLUDE_DIRS}
@@ -183,7 +182,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/carplay
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_CURRENT_SOURCE_DIR}/integrations/carplay/fastcarplay/settings.txt
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/carplay/settings.txt
             $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/carplay/settings.txt
 )
 
@@ -196,4 +195,3 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/QmlModules.cmake)
 if (LINK_INSIGHT)
     include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Insight.cmake)
 endif()
-

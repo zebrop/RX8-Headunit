@@ -2,36 +2,28 @@ import QmlProject
 
 Project {
     mainFile: "AppMain.qml"
-    mainUiFile: "ui/content/Pages/HomeForm.ui.qml"
+    mainUiFile: "qml/pages/HomeForm.ui.qml"
 
     /* Include .qml, .js, and image files from current directory and subdirectories */
     QmlFiles {
-        directory: "ui/content"
-    }
-
-    QmlFiles {
-        directory: "ui/imports"
+        directory: "qml"
     }
 
     JavaScriptFiles {
-        directory: "ui/content"
-    }
-
-    JavaScriptFiles {
-        directory: "ui/imports"
+        directory: "qml"
     }
 
     ImageFiles {
-        directory: "ui/content"
+        directory: "qml"
     }
 
     ImageFiles {
-        directory: "ui/asset_imports"
+        directory: "qml/asset_imports"
     }
 
     Files {
         filter: "*.conf"
-        files: ["ui/assets/qtquickcontrols2.conf"]
+        files: ["assets/qtquickcontrols2.conf"]
     }
 
     Files {
@@ -41,12 +33,12 @@ Project {
 
     Files {
         filter: "qmldir"
-        directory: "ui/imports"
+        directory: "qml/modules"
     }
 
     Files {
         filter: "qmldir"
-        directory: "ui/asset_imports"
+        directory: "qml/asset_imports"
     }
 
     Files {
@@ -71,16 +63,16 @@ Project {
 
     Files {
         filter: "*.mesh"
-        directory: "ui/asset_imports"
+        directory: "qml/asset_imports"
     }
 
     Files {
         filter: "*.qml"
-        directory: "ui/asset_imports"
+        directory: "qml/asset_imports"
     }
 
     Environment {
-        QT_QUICK_CONTROLS_CONF: "ui/assets/qtquickcontrols2.conf"
+        QT_QUICK_CONTROLS_CONF: "assets/qtquickcontrols2.conf"
         QT_AUTO_SCREEN_SCALE_FACTOR: "1"
         QML_COMPAT_RESOLVE_URLS_ON_ASSIGNMENT: "1"
         QT_LOGGING_RULES: "qt.qml.connections=false"
@@ -96,7 +88,7 @@ Project {
     qt6Project: true
 
     /* List of plugin directories passed to QML runtime */
-    importPaths: [ "ui/imports", "ui/asset_imports" ]
+    importPaths: [ "qml/modules", "qml/asset_imports" ]
 
     /* Required for deployment */
     targetDirectory: "/opt/Rx8_HeadUnit"
@@ -111,10 +103,10 @@ Project {
     /* args: Specifies command line arguments for qsb tool to generate shaders.
        files: Specifies target files for qsb tool. If path is included, it must be relative to this file.
               Wildcard '*' can be used in the file name part of the path.
-              e.g. files: [ "ui/content/shaders/*.vert", "*.frag" ]  */
+              e.g. files: [ "qml/shaders/*.vert", "*.frag" ]  */
     ShaderTool {
         args: "-s --glsl \"100 es,120,150\" --hlsl 50 --msl 12"
-        files: [ "ui/content/shaders/*" ]
+        files: [ "qml/shaders/*" ]
     }
 
     multilanguageSupport: true

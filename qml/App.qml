@@ -1,8 +1,8 @@
 import QtQuick 6.8
 import QtQuick.Controls 6.8
 import QtQuick.Layouts 6.8
-import "Pages"
-import "Components"
+import "pages"
+import "components"
 
 Window {
     id: root
@@ -52,13 +52,13 @@ Window {
 
         BottomBar {
             id: bottomBar
-            homeIconSource: Qt.resolvedUrl("../assets/Icons/Default/Home.png")
-            carPlayIconSource: Qt.resolvedUrl("../assets/Icons/Default/CarPlay.png")
-            airConditioningIconSource: Qt.resolvedUrl("../assets/Icons/Default/AirConditioning.png")
-            performanceIconSource: Qt.resolvedUrl("../assets/Icons/Default/Performance.png")
-            mediaIconSource: Qt.resolvedUrl("../assets/Icons/Default/Media.png")
-            themesIconSource: Qt.resolvedUrl("../assets/Icons/Default/Themes.png")
-            settingsIconSource: Qt.resolvedUrl("../assets/Icons/Default/Settings.png")
+            homeIconSource: Qt.resolvedUrl("../assets/icons/Home.png")
+            carPlayIconSource: Qt.resolvedUrl("../assets/icons/CarPlay.png")
+            airConditioningIconSource: Qt.resolvedUrl("../assets/icons/AirConditioning.png")
+            performanceIconSource: Qt.resolvedUrl("../assets/icons/Performance.png")
+            mediaIconSource: Qt.resolvedUrl("../assets/icons/Media.png")
+            themesIconSource: Qt.resolvedUrl("../assets/icons/Themes.png")
+            settingsIconSource: Qt.resolvedUrl("../assets/icons/Settings.png")
 
             Layout.fillWidth: true
             Layout.preferredHeight: 120

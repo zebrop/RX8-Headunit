@@ -5,17 +5,17 @@ AirConditioningForm {
     width: 1280
     height: 800
 
-    readonly property url iconFace: Qt.resolvedUrl("../../assets/Icons/Default/Face.svg")
-    readonly property url iconFeet: Qt.resolvedUrl("../../assets/Icons/Default/Feet.svg")
-    readonly property url iconFaceFeet: Qt.resolvedUrl("../../assets/Icons/Default/Face_Feet.svg")
-    readonly property url iconFeetDemist: Qt.resolvedUrl("../../assets/Icons/Default/Feet_Demist.svg")
-    readonly property url iconDemist: Qt.resolvedUrl("../../assets/Icons/Default/Demist.svg")
-    readonly property url iconRearDemist: Qt.resolvedUrl("../../assets/Icons/Default/Rear_Demist.svg")
-    readonly property url iconRecirc: Qt.resolvedUrl("../../assets/Icons/Default/Recirc.svg")
-    readonly property url iconFresh: Qt.resolvedUrl("../../assets/Icons/Default/Fresh.svg")
-    readonly property url iconPower: Qt.resolvedUrl("../../assets/Icons/Default/Power.svg")
-    readonly property url iconAuto: Qt.resolvedUrl("../../assets/Icons/Default/Auto.svg")
-    readonly property url iconAC: Qt.resolvedUrl("../../assets/Icons/Default/AC.svg")
+    readonly property url iconFace: Qt.resolvedUrl("../../assets/icons/Face.svg")
+    readonly property url iconFeet: Qt.resolvedUrl("../../assets/icons/Feet.svg")
+    readonly property url iconFaceFeet: Qt.resolvedUrl("../../assets/icons/Face_Feet.svg")
+    readonly property url iconFeetDemist: Qt.resolvedUrl("../../assets/icons/Feet_Demist.svg")
+    readonly property url iconDemist: Qt.resolvedUrl("../../assets/icons/Demist.svg")
+    readonly property url iconRearDemist: Qt.resolvedUrl("../../assets/icons/Rear_Demist.svg")
+    readonly property url iconRecirc: Qt.resolvedUrl("../../assets/icons/Recirc.svg")
+    readonly property url iconFresh: Qt.resolvedUrl("../../assets/icons/Fresh.svg")
+    readonly property url iconPower: Qt.resolvedUrl("../../assets/icons/Power.svg")
+    readonly property url iconAuto: Qt.resolvedUrl("../../assets/icons/Auto.svg")
+    readonly property url iconAC: Qt.resolvedUrl("../../assets/icons/AC.svg")
 
     readonly property int modeFace: 0
     readonly property int modeFaceFeet: 1

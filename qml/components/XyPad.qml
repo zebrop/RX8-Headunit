@@ -65,7 +65,7 @@ Item {
         anchors.topMargin: 4
         anchors.bottomMargin: 4
 
-        source: "../../assets/Car/interior.png"
+        source: "../../assets/car/interior.png"
         fillMode: Image.PreserveAspectFit
         smooth: true
         mipmap: true
