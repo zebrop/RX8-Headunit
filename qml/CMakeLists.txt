@@ -12,6 +12,10 @@ set_source_files_properties(
     ../assets/backgrounds/simple_dark.jpg
     PROPERTIES QT_RESOURCE_ALIAS assets/backgrounds/simple_dark.jpg
 )
+set_source_files_properties(
+    ../assets/backgrounds/purple_anime.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/backgrounds/purple_anime.png
+)
 
 set_source_files_properties(../assets/icons/Home.png
     PROPERTIES QT_RESOURCE_ALIAS assets/icons/Home.png
@@ -36,6 +40,56 @@ set_source_files_properties(../assets/icons/Settings.png
 )
 set_source_files_properties(../assets/icons/Volume.png
     PROPERTIES QT_RESOURCE_ALIAS assets/icons/Volume.png
+)
+set_source_files_properties(../assets/car/13b.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/car/13b.svg
+)
+set_source_files_properties(../assets/car/Shell_Wireframe.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/car/Shell_Wireframe.svg
+)
+set_source_files_properties(../assets/car/drivetrain.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/car/drivetrain.svg
+)
+set_source_files_properties(../assets/car/wheel.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/car/wheel.svg
+)
+
+set_source_files_properties(../assets/car/interior.png
+    PROPERTIES QT_RESOURCE_ALIAS assets/car/interior.png
+)
+
+set_source_files_properties(../assets/icons/AC.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/AC.svg
+)
+set_source_files_properties(../assets/icons/Auto.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Auto.svg
+)
+set_source_files_properties(../assets/icons/Demist.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Demist.svg
+)
+set_source_files_properties(../assets/icons/Face.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Face.svg
+)
+set_source_files_properties(../assets/icons/Face_Feet.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Face_Feet.svg
+)
+set_source_files_properties(../assets/icons/Feet.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Feet.svg
+)
+set_source_files_properties(../assets/icons/Feet_Demist.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Feet_Demist.svg
+)
+set_source_files_properties(../assets/icons/Fresh.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Fresh.svg
+)
+set_source_files_properties(../assets/icons/Power.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Power.svg
+)
+set_source_files_properties(../assets/icons/Rear_Demist.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Rear_Demist.svg
+)
+set_source_files_properties(../assets/icons/Recirc.svg
+    PROPERTIES QT_RESOURCE_ALIAS assets/icons/Recirc.svg
 )
 
 qt6_add_qml_module(content
@@ -80,6 +134,7 @@ qt6_add_qml_module(content
         components/EqualizerPanel.qml
         components/EqualizerSlider.qml
         components/PresetBox.qml
+        components/WheelTelemetryOverlay.qml
         data/MediaPresets.js
 
     RESOURCES
@@ -94,5 +149,22 @@ qt6_add_qml_module(content
         ../assets/icons/Settings.png
         ../assets/icons/Volume.png
         ../assets/backgrounds/simple_dark.jpg
+        ../assets/backgrounds/purple_anime.png
+        ../assets/car/13b.svg
+        ../assets/car/Shell_Wireframe.svg
+        ../assets/car/drivetrain.svg
+        ../assets/car/wheel.svg
+        ../assets/car/interior.png
+        ../assets/icons/AC.svg
+        ../assets/icons/Auto.svg
+        ../assets/icons/Demist.svg
+        ../assets/icons/Face.svg
+        ../assets/icons/Face_Feet.svg
+        ../assets/icons/Feet.svg
+        ../assets/icons/Feet_Demist.svg
+        ../assets/icons/Fresh.svg
+        ../assets/icons/Power.svg
+        ../assets/icons/Rear_Demist.svg
+        ../assets/icons/Recirc.svg
 
 )

@@ -1,0 +1,42 @@
+module content
+
+App 1.0 ../App.qml
+
+Home 1.0 ../pages/Home.qml
+Loading 1.0 ../pages/Loading.qml
+MediaControls 1.0 ../pages/MediaControls.qml
+Performance 1.0 ../pages/Performance.qml
+Settings 1.0 ../pages/Settings.qml
+AirConditioning 1.0 ../pages/AirConditioning.qml
+AppleCarPlay 1.0 ../pages/AppleCarPlay.qml
+Themes 1.0 ../pages/Themes.qml
+
+HomeForm 1.0 ../pages/HomeForm.ui.qml
+LoadingForm 1.0 ../pages/LoadingForm.ui.qml
+MediaControlsForm 1.0 ../pages/MediaControlsForm.ui.qml
+PerformanceForm 1.0 ../pages/PerformanceForm.ui.qml
+SettingsForm 1.0 ../pages/SettingsForm.ui.qml
+AirConditioningForm 1.0 ../pages/AirConditioningForm.ui.qml
+AppleCarPlayForm 1.0 ../pages/AppleCarPlayForm.ui.qml
+ThemesForm 1.0 ../pages/ThemesForm.ui.qml
+
+BottomBar 1.0 ../components/BottomBar.qml
+PanelBox 1.0 ../components/PanelBox.qml
+IconLabel 1.0 ../components/IconLabel.qml
+NavButton 1.0 ../components/NavButton.qml
+ActionButton 1.0 ../components/ActionButton.qml
+AddPresetPopup 1.0 ../components/AddPresetPopup.qml
+ToggleButton 1.0 ../components/ToggleButton.qml
+VerticalSlider 1.0 ../components/VerticalSlider.qml
+SwitchControl 1.0 ../components/SwitchControl.qml
+StatusChip 1.0 ../components/StatusChip.qml
+VolumeOverlay 1.0 ../components/VolumeOverlay.qml
+XyPad 1.0 ../components/XyPad.qml
+ThemeButton 1.0 ../components/ThemeButton.qml
+AcButton 1.0 ../components/AcButton.qml
+AcSwitch 1.0 ../components/AcSwitch.qml
+AcSlider 1.0 ../components/AcSlider.qml
+EqualizerPanel 1.0 ../components/EqualizerPanel.qml
+EqualizerSlider 1.0 ../components/EqualizerSlider.qml
+PresetBox 1.0 ../components/PresetBox.qml
+WheelTelemetryOverlay 1.0 ../components/WheelTelemetryOverlay.qml

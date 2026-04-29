@@ -18,6 +18,11 @@ Project {
     }
 
     ImageFiles {
+        directory: "assets"
+        filter: "*.png;*.jpg;*.jpeg;*.svg;*.bmp;*.gif;*.webp"
+    }
+
+    ImageFiles {
         directory: "qml/asset_imports"
     }
 
@@ -34,6 +39,11 @@ Project {
     Files {
         filter: "qmldir"
         directory: "qml/modules"
+    }
+
+    Files {
+        filter: "qmldir"
+        directory: "qml/content"
     }
 
     Files {
@@ -88,7 +98,7 @@ Project {
     qt6Project: true
 
     /* List of plugin directories passed to QML runtime */
-    importPaths: [ "qml/modules", "qml/asset_imports" ]
+    importPaths: [ "qml", "qml/modules", "qml/asset_imports" ]
 
     /* Required for deployment */
     targetDirectory: "/opt/Rx8_HeadUnit"

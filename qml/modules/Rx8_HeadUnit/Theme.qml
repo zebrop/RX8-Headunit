@@ -48,7 +48,7 @@ QtObject {
     property url mediaPageBackground: defaultPageBackground
     property url appleCarPlayPageBackground: defaultPageBackground
     property url acPageBackground: defaultPageBackground
-    property url performancePageBackground: defaultPageBackground
+    property url performancePageBackground: defaultPerformancePageBackground
     property url themesPageBackground: defaultPageBackground
     property url settingsPageBackground: defaultPageBackground
 
@@ -60,15 +60,15 @@ QtObject {
     property url themesIconSource: defaultThemesIcon
     property url settingsIconSource: defaultSettingsIcon
 
-    readonly property bool useResourceAssets: Qt.resolvedUrl("Theme.qml").toString().indexOf("qrc:") === 0
-    readonly property url defaultPageBackground: useResourceAssets ? "qrc:/assets/backgrounds/simple_dark.jpg" : Qt.resolvedUrl("../../../assets/backgrounds/simple_dark.jpg")
-    readonly property url defaultHomeIcon: useResourceAssets ? "qrc:/assets/icons/Home.png" : Qt.resolvedUrl("../../../assets/icons/Home.png")
-    readonly property url defaultCarPlayIcon: useResourceAssets ? "qrc:/assets/icons/CarPlay.png" : Qt.resolvedUrl("../../../assets/icons/CarPlay.png")
-    readonly property url defaultAirConditioningIcon: useResourceAssets ? "qrc:/assets/icons/AirConditioning.png" : Qt.resolvedUrl("../../../assets/icons/AirConditioning.png")
-    readonly property url defaultPerformanceIcon: useResourceAssets ? "qrc:/assets/icons/Performance.png" : Qt.resolvedUrl("../../../assets/icons/Performance.png")
-    readonly property url defaultMediaIcon: useResourceAssets ? "qrc:/assets/icons/Media.png" : Qt.resolvedUrl("../../../assets/icons/Media.png")
-    readonly property url defaultThemesIcon: useResourceAssets ? "qrc:/assets/icons/Themes.png" : Qt.resolvedUrl("../../../assets/icons/Themes.png")
-    readonly property url defaultSettingsIcon: useResourceAssets ? "qrc:/assets/icons/Settings.png" : Qt.resolvedUrl("../../../assets/icons/Settings.png")
+    readonly property url defaultPageBackground: Qt.resolvedUrl("../../../assets/backgrounds/simple_dark.jpg")
+    readonly property url defaultPerformancePageBackground: defaultPageBackground
+    readonly property url defaultHomeIcon: Qt.resolvedUrl("../../../assets/icons/Home.png")
+    readonly property url defaultCarPlayIcon: Qt.resolvedUrl("../../../assets/icons/CarPlay.png")
+    readonly property url defaultAirConditioningIcon: Qt.resolvedUrl("../../../assets/icons/AirConditioning.png")
+    readonly property url defaultPerformanceIcon: Qt.resolvedUrl("../../../assets/icons/Performance.png")
+    readonly property url defaultMediaIcon: Qt.resolvedUrl("../../../assets/icons/Media.png")
+    readonly property url defaultThemesIcon: Qt.resolvedUrl("../../../assets/icons/Themes.png")
+    readonly property url defaultSettingsIcon: Qt.resolvedUrl("../../../assets/icons/Settings.png")
 
     readonly property var themes: [
         {
@@ -81,7 +81,7 @@ QtObject {
             mediaBackground: defaultPageBackground,
             appleCarPlayBackground: defaultPageBackground,
             acBackground: defaultPageBackground,
-            performanceBackground: defaultPageBackground,
+            performanceBackground: defaultPerformancePageBackground,
             themesBackground: defaultPageBackground,
             settingsBackground: defaultPageBackground,
             previewImage: defaultPageBackground
@@ -96,7 +96,7 @@ QtObject {
             mediaBackground: defaultPageBackground,
             appleCarPlayBackground: defaultPageBackground,
             acBackground: defaultPageBackground,
-            performanceBackground: defaultPageBackground,
+            performanceBackground: defaultPerformancePageBackground,
             themesBackground: defaultPageBackground,
             settingsBackground: defaultPageBackground,
             previewImage: defaultPageBackground
@@ -111,7 +111,7 @@ QtObject {
             mediaBackground: defaultPageBackground,
             appleCarPlayBackground: defaultPageBackground,
             acBackground: defaultPageBackground,
-            performanceBackground: defaultPageBackground,
+            performanceBackground: defaultPerformancePageBackground,
             themesBackground: defaultPageBackground,
             settingsBackground: defaultPageBackground,
             previewImage: defaultPageBackground

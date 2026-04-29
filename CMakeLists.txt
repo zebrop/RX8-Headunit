@@ -14,8 +14,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(BUILD_QDS_COMPONENTS ON CACHE BOOL "Build design studio components")
-option(LINK_INSIGHT "Link Qt Insight Tracker library" ON)
+set(BUILD_QDS_COMPONENTS OFF CACHE BOOL "Build Qt Design Studio components")
+option(LINK_INSIGHT "Link Qt Insight Tracker library" OFF)
 
 find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)

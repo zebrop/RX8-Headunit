@@ -12,6 +12,10 @@ Rectangle {
 
     signal themeRequested(int index)
     signal editThemesRequested()
+    property alias cyanButtonItem: cyanButton
+    property alias purpleButtonItem: purpleButton
+    property alias greenButtonItem: greenButton
+    property alias editButtonItem: editButton
 
     Image {
         id: pageBackground
@@ -27,33 +31,30 @@ Rectangle {
         id: cyanButton
         x: 40
         y: 30
-        buttonText: Theme.themeAt(0).name
-        glowColor: Theme.themeAt(0).accent
-        imageSource: Theme.themeAt(0).previewImage
-        selected: Theme.currentTheme === Theme.themeAt(0).id
-        onClicked: root.themeRequested(0)
+        buttonText: "Cyan"
+        glowColor: "#73fafd"
+        imageSource: Theme.defaultPageBackground
+        selected: Theme.currentTheme === "cyan"
     }
 
     ThemeButton {
         id: purpleButton
         x: 665
         y: 30
-        buttonText: Theme.themeAt(1).name
-        glowColor: Theme.themeAt(1).accent
-        imageSource: Theme.themeAt(1).previewImage
-        selected: Theme.currentTheme === Theme.themeAt(1).id
-        onClicked: root.themeRequested(1)
+        buttonText: "Purple"
+        glowColor: "#b879ff"
+        imageSource: Theme.defaultPageBackground
+        selected: Theme.currentTheme === "purple"
     }
 
     ThemeButton {
         id: greenButton
         x: 40
         y: 360
-        buttonText: Theme.themeAt(2).name
-        glowColor: Theme.themeAt(2).accent
-        imageSource: Theme.themeAt(2).previewImage
-        selected: Theme.currentTheme === Theme.themeAt(2).id
-        onClicked: root.themeRequested(2)
+        buttonText: "Green"
+        glowColor: "#00ffaa"
+        imageSource: Theme.defaultPageBackground
+        selected: Theme.currentTheme === "green"
     }
 
     ThemeButton {
@@ -62,6 +63,5 @@ Rectangle {
         y: 360
         buttonText: "Edit Themes"
         glowColor: Theme.accentColor
-        onClicked: root.editThemesRequested()
     }
 }

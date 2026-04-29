@@ -24,8 +24,33 @@ ThemesForm {
         selectTheme(0)
     }
 
-    onThemeRequested: function(index) { selectTheme(index) }
-    onEditThemesRequested: modifyDialog.open()
+    Connections {
+        target: root.cyanButtonItem
+        function onClicked() {
+            root.selectTheme(0)
+        }
+    }
+
+    Connections {
+        target: root.purpleButtonItem
+        function onClicked() {
+            root.selectTheme(1)
+        }
+    }
+
+    Connections {
+        target: root.greenButtonItem
+        function onClicked() {
+            root.selectTheme(2)
+        }
+    }
+
+    Connections {
+        target: root.editButtonItem
+        function onClicked() {
+            modifyDialog.open()
+        }
+    }
 
     ColorDialog {
         id: colorDialog

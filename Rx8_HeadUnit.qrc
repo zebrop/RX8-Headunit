@@ -1,10 +1,17 @@
 <RCC>
-    <qresource>
+    <!-- Root prefix: assets for Rx8_HeadUnit module (Theme.qml resolves ../../../assets/ → qrc:/assets/) -->
+    <qresource prefix="/">
         <file>Rx8_HeadUnit.qmlproject</file>
+        <file>assets/qtquickcontrols2.conf</file>
         <file>assets/backgrounds/simple_dark.jpg</file>
+        <file>assets/backgrounds/purple_anime.png</file>
         <file>assets/car/interior.png</file>
         <file>assets/car/interior.svg</file>
         <file>assets/car/interior_Full.png</file>
+        <file>assets/car/13b.svg</file>
+        <file>assets/car/drivetrain.svg</file>
+        <file>assets/car/Shell_Wireframe.svg</file>
+        <file>assets/car/wheel.svg</file>
         <file>assets/icons/AC.svg</file>
         <file>assets/icons/AirConditioning.png</file>
         <file>assets/icons/Auto.svg</file>
@@ -24,7 +31,6 @@
         <file>assets/icons/Settings.png</file>
         <file>assets/icons/Themes.png</file>
         <file>assets/icons/Volume.png</file>
-        <file>assets/qtquickcontrols2.conf</file>
         <file>qml/App.qml</file>
         <file>qml/components/AcButton.qml</file>
         <file>qml/components/AcSlider.qml</file>
@@ -44,7 +50,9 @@
         <file>qml/components/ToggleButton.qml</file>
         <file>qml/components/VerticalSlider.qml</file>
         <file>qml/components/VolumeOverlay.qml</file>
+        <file>qml/components/WheelTelemetryOverlay.qml</file>
         <file>qml/components/XyPad.qml</file>
+        <file>qml/content/qmldir</file>
         <file>qml/data/MediaPresets.js</file>
         <file>qml/modules/CarPlay/CarPlayView.qml</file>
         <file>qml/modules/CarPlay/qmldir</file>
@@ -71,5 +79,35 @@
         <file>qml/pages/Themes.qml</file>
         <file>qml/pages/ThemesForm.ui.qml</file>
         <file>src/carplay/resource/font.ttf</file>
+    </qresource>
+
+    <!-- /qt/qml prefix: assets for content module (pages/components resolve ../../assets/ → qrc:/qt/qml/assets/) -->
+    <qresource prefix="/qt/qml">
+        <file alias="assets/backgrounds/simple_dark.jpg">assets/backgrounds/simple_dark.jpg</file>
+        <file alias="assets/backgrounds/purple_anime.png">assets/backgrounds/purple_anime.png</file>
+        <file alias="assets/icons/Home.png">assets/icons/Home.png</file>
+        <file alias="assets/icons/CarPlay.png">assets/icons/CarPlay.png</file>
+        <file alias="assets/icons/AirConditioning.png">assets/icons/AirConditioning.png</file>
+        <file alias="assets/icons/Performance.png">assets/icons/Performance.png</file>
+        <file alias="assets/icons/Media.png">assets/icons/Media.png</file>
+        <file alias="assets/icons/Themes.png">assets/icons/Themes.png</file>
+        <file alias="assets/icons/Settings.png">assets/icons/Settings.png</file>
+        <file alias="assets/icons/Volume.png">assets/icons/Volume.png</file>
+        <file alias="assets/icons/AC.svg">assets/icons/AC.svg</file>
+        <file alias="assets/icons/Auto.svg">assets/icons/Auto.svg</file>
+        <file alias="assets/icons/Demist.svg">assets/icons/Demist.svg</file>
+        <file alias="assets/icons/Face.svg">assets/icons/Face.svg</file>
+        <file alias="assets/icons/Face_Feet.svg">assets/icons/Face_Feet.svg</file>
+        <file alias="assets/icons/Feet.svg">assets/icons/Feet.svg</file>
+        <file alias="assets/icons/Feet_Demist.svg">assets/icons/Feet_Demist.svg</file>
+        <file alias="assets/icons/Fresh.svg">assets/icons/Fresh.svg</file>
+        <file alias="assets/icons/Power.svg">assets/icons/Power.svg</file>
+        <file alias="assets/icons/Rear_Demist.svg">assets/icons/Rear_Demist.svg</file>
+        <file alias="assets/icons/Recirc.svg">assets/icons/Recirc.svg</file>
+        <file alias="assets/car/interior.png">assets/car/interior.png</file>
+        <file alias="assets/car/13b.svg">assets/car/13b.svg</file>
+        <file alias="assets/car/drivetrain.svg">assets/car/drivetrain.svg</file>
+        <file alias="assets/car/Shell_Wireframe.svg">assets/car/Shell_Wireframe.svg</file>
+        <file alias="assets/car/wheel.svg">assets/car/wheel.svg</file>
     </qresource>
 </RCC>
