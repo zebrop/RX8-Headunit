@@ -60,15 +60,15 @@ QtObject {
     property url themesIconSource: defaultThemesIcon
     property url settingsIconSource: defaultSettingsIcon
 
-    readonly property url defaultPageBackground: Qt.resolvedUrl("../../../assets/backgrounds/simple_dark.jpg")
+    readonly property url defaultPageBackground: "qrc:/qt/qml/content/assets/backgrounds/simple_dark.jpg"
     readonly property url defaultPerformancePageBackground: defaultPageBackground
-    readonly property url defaultHomeIcon: Qt.resolvedUrl("../../../assets/icons/Home.png")
-    readonly property url defaultCarPlayIcon: Qt.resolvedUrl("../../../assets/icons/CarPlay.png")
-    readonly property url defaultAirConditioningIcon: Qt.resolvedUrl("../../../assets/icons/AirConditioning.png")
-    readonly property url defaultPerformanceIcon: Qt.resolvedUrl("../../../assets/icons/Performance.png")
-    readonly property url defaultMediaIcon: Qt.resolvedUrl("../../../assets/icons/Media.png")
-    readonly property url defaultThemesIcon: Qt.resolvedUrl("../../../assets/icons/Themes.png")
-    readonly property url defaultSettingsIcon: Qt.resolvedUrl("../../../assets/icons/Settings.png")
+    readonly property url defaultHomeIcon: "qrc:/qt/qml/content/assets/icons/Home.png"
+    readonly property url defaultCarPlayIcon: "qrc:/qt/qml/content/assets/icons/CarPlay.png"
+    readonly property url defaultAirConditioningIcon: "qrc:/qt/qml/content/assets/icons/AirConditioning.png"
+    readonly property url defaultPerformanceIcon: "qrc:/qt/qml/content/assets/icons/Performance.png"
+    readonly property url defaultMediaIcon: "qrc:/qt/qml/content/assets/icons/Media.png"
+    readonly property url defaultThemesIcon: "qrc:/qt/qml/content/assets/icons/Themes.png"
+    readonly property url defaultSettingsIcon: "qrc:/qt/qml/content/assets/icons/Settings.png"
 
     readonly property var themes: [
         {

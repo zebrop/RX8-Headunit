@@ -6,3 +6,6 @@ build/
 *.bak
 *.qtds
 CMakeUserPresets.json
+
+# Local/Pi CMake builds
+build*/

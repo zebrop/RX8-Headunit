@@ -10,6 +10,14 @@ Item {
     property Item frontRightWheel
     property Item rearLeftWheel
     property Item rearRightWheel
+    property real steeringDeg: 0
+    property real frontLeftSpeedKmh: 0
+    property real frontRightSpeedKmh: 0
+    property real rearLeftSpeedKmh: 0
+    property real rearRightSpeedKmh: 0
+
+    function kmhText(value) { return Math.round(value) + " km/h" }
+    function steeringText(value) { return value.toFixed(1) + "°" }
     readonly property real vehicleLocalWidth: 780
     readonly property real vehicleLocalHeight: 410
     readonly property real vehicleOriginX: vehicleLocalWidth / 2
@@ -117,7 +125,7 @@ Item {
         Text {
             x: 36
             y: 5
-            text: "0.0°"
+            text: root.steeringText(root.steeringDeg)
             color: Theme.textPrimary
             font.pixelSize: 16
             font.bold: true
@@ -126,7 +134,7 @@ Item {
         Text {
             x: 10
             y: 29
-            text: "0 km/h"
+            text: root.kmhText(root.frontLeftSpeedKmh)
             color: Theme.accent
             font.pixelSize: 15
             font.bold: true
@@ -170,7 +178,7 @@ Item {
         Text {
             x: 36
             y: 5
-            text: "0.0°"
+            text: root.steeringText(root.steeringDeg)
             color: Theme.textPrimary
             font.pixelSize: 16
             font.bold: true
@@ -179,7 +187,7 @@ Item {
         Text {
             x: 10
             y: 29
-            text: "0 km/h"
+            text: root.kmhText(root.frontRightSpeedKmh)
             color: Theme.accent
             font.pixelSize: 15
             font.bold: true
@@ -223,7 +231,7 @@ Item {
         Text {
             x: 36
             y: 5
-            text: "0.0°"
+            text: "--"
             color: Theme.textPrimary
             font.pixelSize: 16
             font.bold: true
@@ -232,7 +240,7 @@ Item {
         Text {
             x: 10
             y: 29
-            text: "0 km/h"
+            text: root.kmhText(root.rearLeftSpeedKmh)
             color: Theme.accent
             font.pixelSize: 15
             font.bold: true
@@ -276,7 +284,7 @@ Item {
         Text {
             x: 36
             y: 5
-            text: "0.0°"
+            text: "--"
             color: Theme.textPrimary
             font.pixelSize: 16
             font.bold: true
@@ -285,7 +293,7 @@ Item {
         Text {
             x: 10
             y: 29
-            text: "0 km/h"
+            text: root.kmhText(root.rearRightSpeedKmh)
             color: Theme.accent
             font.pixelSize: 15
             font.bold: true

@@ -17,8 +17,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(BUILD_QDS_COMPONENTS OFF CACHE BOOL "Build Qt Design Studio components")
 option(LINK_INSIGHT "Link Qt Insight Tracker library" OFF)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Quick3D Quick3DAssetUtils Multimedia)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Quick3D Quick3DAssetUtils Multimedia)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Quick3D Quick3DAssetUtils Multimedia SerialPort)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Quick3D Quick3DAssetUtils Multimedia SerialPort)
 
 qt_policy(SET QTP0001 NEW)
 qt_policy(SET QTP0004 NEW)
@@ -77,7 +77,8 @@ set(APP_SOURCES
     src/main.cpp
     src/app_environment.h
     src/import_qml_components_plugins.h
-    Rx8_HeadUnit.qrc
+    src/teensy/TeensyGateway.cpp
+    src/teensy/TeensyGateway.h
 )
 
 set(CARPLAY_SOURCES
@@ -164,6 +165,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Qt6::Quick3DAssetUtils
     Qt6::Qml
     Qt6::Multimedia
+    Qt6::SerialPort
 
     OpenSSL::SSL
     OpenSSL::Crypto
@@ -197,3 +199,21 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/QmlModules.cmake)
 if (LINK_INSIGHT)
     include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Insight.cmake)
 endif()
+
+
+# --------------------------------------------------
+# Install / Raspberry Pi runtime
+# --------------------------------------------------
+
+install(TARGETS ${CMAKE_PROJECT_NAME}
+    RUNTIME DESTINATION .
+)
+
+install(FILES src/carplay/settings.txt
+    DESTINATION carplay
+)
+
+install(PROGRAMS scripts/launch-rpi.sh
+    DESTINATION .
+    RENAME launch.sh
+)

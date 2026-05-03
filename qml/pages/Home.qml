@@ -61,7 +61,7 @@ HomeForm {
 
             RuntimeLoader {
                 id: carModel
-                source: Qt.resolvedUrl("../../assets/car/Mazda_RX8.glb")
+                source: "qrc:/qt/qml/content/assets/car/Mazda_RX8.glb"
                 position: Qt.vector3d(
                     -(bounds.minimum.x + bounds.maximum.x) * 0.5,
                     -(bounds.minimum.y + bounds.maximum.y) * 0.5,

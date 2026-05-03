@@ -5,31 +5,31 @@ AirConditioningForm {
     width: 1280
     height: 800
 
-    readonly property url iconFace: Qt.resolvedUrl("../../assets/icons/Face.svg")
-    readonly property url iconFeet: Qt.resolvedUrl("../../assets/icons/Feet.svg")
-    readonly property url iconFaceFeet: Qt.resolvedUrl("../../assets/icons/Face_Feet.svg")
-    readonly property url iconFeetDemist: Qt.resolvedUrl("../../assets/icons/Feet_Demist.svg")
-    readonly property url iconDemist: Qt.resolvedUrl("../../assets/icons/Demist.svg")
-    readonly property url iconRearDemist: Qt.resolvedUrl("../../assets/icons/Rear_Demist.svg")
-    readonly property url iconRecirc: Qt.resolvedUrl("../../assets/icons/Recirc.svg")
-    readonly property url iconFresh: Qt.resolvedUrl("../../assets/icons/Fresh.svg")
-    readonly property url iconPower: Qt.resolvedUrl("../../assets/icons/Power.svg")
-    readonly property url iconAuto: Qt.resolvedUrl("../../assets/icons/Auto.svg")
-    readonly property url iconAC: Qt.resolvedUrl("../../assets/icons/AC.svg")
+    readonly property url iconFace: "qrc:/qt/qml/content/assets/icons/Face.svg"
+    readonly property url iconFeet: "qrc:/qt/qml/content/assets/icons/Feet.svg"
+    readonly property url iconFaceFeet: "qrc:/qt/qml/content/assets/icons/Face_Feet.svg"
+    readonly property url iconFeetDemist: "qrc:/qt/qml/content/assets/icons/Feet_Demist.svg"
+    readonly property url iconDemist: "qrc:/qt/qml/content/assets/icons/Demist.svg"
+    readonly property url iconRearDemist: "qrc:/qt/qml/content/assets/icons/Rear_Demist.svg"
+    readonly property url iconRecirc: "qrc:/qt/qml/content/assets/icons/Recirc.svg"
+    readonly property url iconFresh: "qrc:/qt/qml/content/assets/icons/Fresh.svg"
+    readonly property url iconPower: "qrc:/qt/qml/content/assets/icons/Power.svg"
+    readonly property url iconAuto: "qrc:/qt/qml/content/assets/icons/Auto.svg"
+    readonly property url iconAC: "qrc:/qt/qml/content/assets/icons/AC.svg"
 
-    readonly property int modeFace: 0
-    readonly property int modeFaceFeet: 1
-    readonly property int modeFeet: 2
-    readonly property int modeFeetDemist: 3
-    readonly property int modeDemist: 4
+    // Teensy ac_mode mapping:
+    // 0 = unknown, 1 = feet, 2 = feet + demist, 3 = face, 4 = face + feet, 5 = front demist
+    readonly property int modeUnknown: 0
+    readonly property int modeFeet: 1
+    readonly property int modeFeetDemist: 2
+    readonly property int modeFace: 3
+    readonly property int modeFaceFeet: 4
+    readonly property int modeDemist: 5
 
-    property int lastSelectedMode: modeFace
-    property bool lastRecircChecked: false
-    property bool lastAutoChecked: false
-    property bool lastAcChecked: false
-    property bool lastRearDemistChecked: false
-
-    property bool restoringPowerState: false
+    // Teensy ac_air_source mapping: 0 = recirc, 1 = fresh
+    property var gateway: (typeof teensyGateway !== "undefined") ? teensyGateway : null
+    readonly property bool acOnline: gateway && gateway.acRxValid
+    readonly property bool acPowerOn: acOnline && gateway.acFan > 0
 
     faceButton.iconSource: iconFace
     feetButton.iconSource: iconFeet
@@ -41,6 +41,16 @@ AirConditioningForm {
     autoButton.iconSource: iconAuto
     acButton.iconSource: iconAC
 
+    faceButton.checkable: false
+    feetButton.checkable: false
+    faceFeetButton.checkable: false
+    feetDemistButton.checkable: false
+    demistFrontButton.checkable: false
+    rearDemistButton.checkable: false
+    powerButton.checkable: false
+    autoButton.checkable: false
+    acButton.checkable: false
+
     faceButton.iconSize: 76
     feetButton.iconSize: 76
     faceFeetButton.iconSize: 76
@@ -51,185 +61,88 @@ AirConditioningForm {
     autoButton.iconSize: 60
     acButton.iconSize: 60
 
+    temperatureSlider.enabled: acOnline
+    fanSlider.enabled: acOnline
+    recircSwitch.enabled: acPowerOn
+    faceButton.enabled: acPowerOn
+    faceFeetButton.enabled: acPowerOn
+    feetButton.enabled: acPowerOn
+    feetDemistButton.enabled: acPowerOn
+    demistFrontButton.enabled: acPowerOn
+    autoButton.enabled: acPowerOn
+    acButton.enabled: acPowerOn
+    rearDemistButton.enabled: acOnline
+
     recircSwitch.iconSource: recircSwitch.checked ? iconRecirc : iconFresh
 
-    function fanSpeed() {
-        return Math.round(fanSlider.value)
+    normalIndicator.color: acOnline && gateway.acRunning && !gateway.acEco ? Theme.accent : "#333332"
+    ambientIndicator.color: acOnline && gateway.acAmbient ? Theme.accent : "#333332"
+    ecoIndicator.color: acOnline && gateway.acEco ? Theme.accent : "#333332"
+
+    Binding { target: temperatureSlider; property: "value"; value: gateway ? gateway.acTemp : 22 }
+    Binding { target: fanSlider; property: "value"; value: gateway ? gateway.acFan : 0 }
+
+    Binding { target: powerButton; property: "checked"; value: acPowerOn }
+    Binding { target: autoButton; property: "checked"; value: acOnline && gateway.acAuto }
+    Binding { target: acButton; property: "checked"; value: acOnline && gateway.acCompressor }
+    Binding { target: rearDemistButton; property: "checked"; value: acOnline && gateway.acRearDemist }
+    Binding { target: recircSwitch; property: "checked"; value: acOnline && gateway.acAirSource === 0 }
+
+    Binding { target: faceButton; property: "checked"; value: acOnline && gateway.acMode === modeFace }
+    Binding { target: faceFeetButton; property: "checked"; value: acOnline && gateway.acMode === modeFaceFeet }
+    Binding { target: feetButton; property: "checked"; value: acOnline && gateway.acMode === modeFeet }
+    Binding { target: feetDemistButton; property: "checked"; value: acOnline && gateway.acMode === modeFeetDemist }
+    Binding { target: demistFrontButton; property: "checked"; value: acOnline && gateway.acMode === modeDemist }
+
+    function send(command) {
+        if (gateway)
+            gateway.sendCommand(command)
     }
 
-    function isPowerOn() {
-        return fanSpeed() > 0
+    function sendRepeated(command, count) {
+        count = Math.max(0, Math.min(10, Math.round(count)))
+        for (var i = 0; i < count; ++i)
+            send(command)
     }
 
-    function saveCurrentState() {
-        lastAutoChecked = autoButton.checked
-        lastAcChecked = acButton.checked
-        lastRearDemistChecked = rearDemistButton.checked
-        lastRecircChecked = recircSwitch.checked
-    }
-
-    function setAirflowMode(mode) {
-        lastSelectedMode = mode
-
-        faceButton.checked = mode === modeFace
-        faceFeetButton.checked = mode === modeFaceFeet
-        feetButton.checked = mode === modeFeet
-        feetDemistButton.checked = mode === modeFeetDemist
-        demistFrontButton.checked = mode === modeDemist
-    }
-
-    function clearAirflow() {
-        faceButton.checked = false
-        faceFeetButton.checked = false
-        feetButton.checked = false
-        feetDemistButton.checked = false
-        demistFrontButton.checked = false
-    }
-
-    function applyPowerState() {
-        var on = isPowerOn()
-
-        powerButton.checked = on
-
-        recircSwitch.enabled = on
-        recircSwitch.glowEnabled = on
-        recircSwitch.permanentGlow = on
-
-        faceButton.enabled = on
-        faceFeetButton.enabled = on
-        feetButton.enabled = on
-        feetDemistButton.enabled = on
-        demistFrontButton.enabled = on
-
-        autoButton.enabled = on
-        acButton.enabled = on
-
-        if (!on) {
-            clearAirflow()
-            autoButton.checked = false
-            acButton.checked = false
-
-            // Rear demist and recirc keep their visual state.
-            return
-        }
-
-        setAirflowMode(lastSelectedMode)
-        recircSwitch.checked = lastRecircChecked
-        autoButton.checked = lastAutoChecked
-        acButton.checked = lastAcChecked
-        rearDemistButton.checked = lastRearDemistChecked
-    }
-
-    function powerOff() {
-        saveCurrentState()
-
-        fanSlider.value = 0
-        applyPowerState()
-    }
-
-    function powerOn() {
-        restoringPowerState = true
-
-        if (fanSlider.value <= 0)
-            fanSlider.value = 1
-
-        applyPowerState()
-
-        restoringPowerState = false
-    }
-
-    Component.onCompleted: {
-        setAirflowMode(lastSelectedMode)
-
-        lastRecircChecked = recircSwitch.checked
-        lastAutoChecked = autoButton.checked
-        lastAcChecked = acButton.checked
-        lastRearDemistChecked = rearDemistButton.checked
-
-        applyPowerState()
-    }
-
-    faceButton.onClicked: {
-        if (isPowerOn())
-            setAirflowMode(modeFace)
-    }
-
-    faceFeetButton.onClicked: {
-        if (isPowerOn())
-            setAirflowMode(modeFaceFeet)
-    }
-
-    feetButton.onClicked: {
-        if (isPowerOn())
-            setAirflowMode(modeFeet)
-    }
-
-    feetDemistButton.onClicked: {
-        if (isPowerOn())
-            setAirflowMode(modeFeetDemist)
-    }
-
-    demistFrontButton.onClicked: {
-        if (isPowerOn())
-            setAirflowMode(modeDemist)
-    }
+    faceButton.onClicked: send("face")
+    faceFeetButton.onClicked: send("facefeet")
+    feetButton.onClicked: send("feet")
+    feetDemistButton.onClicked: send("feetdemist")
+    demistFrontButton.onClicked: send("demist")
+    autoButton.onClicked: send("auto")
+    acButton.onClicked: send("ac")
+    rearDemistButton.onClicked: send("reardemist")
+    recircSwitch.onToggled: send("airsource")
 
     powerButton.onClicked: {
-        if (isPowerOn())
-            powerOff()
+        if (acPowerOn)
+            send("off")
         else
-            powerOn()
+            send("fanup")
     }
 
     temperatureSlider.onValueChangedByUser: (v) => {
-        temperatureSlider.value = Math.round(v)
+        if (!acOnline)
+            return
+
+        var target = Math.round(v)
+        var current = Math.round(gateway.acTemp)
+        if (target > current)
+            sendRepeated("tempup", target - current)
+        else if (target < current)
+            sendRepeated("tempdown", current - target)
     }
 
     fanSlider.onValueChangedByUser: (v) => {
-        var oldFan = fanSpeed()
-
-        fanSlider.value = Math.round(v)
-
-        if (fanSlider.value <= 0) {
-            powerOff()
+        if (!acOnline)
             return
-        }
 
-        if (oldFan > 0 && autoButton.checked && !restoringPowerState) {
-            autoButton.checked = false
-            lastAutoChecked = false
-        }
-
-        applyPowerState()
-    }
-
-    autoButton.onClicked: {
-        if (!isPowerOn()) {
-            autoButton.checked = false
-            return
-        }
-
-        lastAutoChecked = autoButton.checked
-    }
-
-    acButton.onClicked: {
-        if (!isPowerOn()) {
-            acButton.checked = false
-            return
-        }
-
-        lastAcChecked = acButton.checked
-    }
-
-    rearDemistButton.onClicked: {
-        lastRearDemistChecked = rearDemistButton.checked
-    }
-
-    recircSwitch.onToggled: (v) => {
-        if (!isPowerOn()) {
-            return
-        }
-
-        lastRecircChecked = v
+        var target = Math.round(v)
+        var current = Math.round(gateway.acFan)
+        if (target > current)
+            sendRepeated("fanup", target - current)
+        else if (target < current)
+            sendRepeated("fandown", current - target)
     }
 }

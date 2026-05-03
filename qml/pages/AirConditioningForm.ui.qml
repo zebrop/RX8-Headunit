@@ -6,7 +6,6 @@ import QtQuick 6.8
 import QtQuick.Controls 6.8
 import Rx8_HeadUnit
 import QtQuick.Shapes 6.8
-import "../components"
 
 Rectangle {
     id: root
@@ -29,7 +28,7 @@ Rectangle {
         visible: status === Image.Ready
 
         Rectangle {
-            id: rectangle1
+            id: normalIndicator
             x: 811
             y: 100
             width: 20
@@ -39,7 +38,7 @@ Rectangle {
         }
 
         Rectangle {
-            id: rectangle2
+            id: ambientIndicator
             x: 811
             y: 140
             width: 20
@@ -49,7 +48,7 @@ Rectangle {
         }
 
         Rectangle {
-            id: rectangle3
+            id: ecoIndicator
             x: 811
             y: 60
             width: 20
@@ -103,6 +102,9 @@ Rectangle {
     property alias recircSwitch: recircSwitch
     property alias rearDemistButton: rearDemistButton
     property alias powerButton: powerButton
+    property alias normalIndicator: normalIndicator
+    property alias ambientIndicator: ambientIndicator
+    property alias ecoIndicator: ecoIndicator
 
     property alias temperatureValueText: temperatureValueText
     property alias fanValueText: fanValueText

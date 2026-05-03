@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
 
 #include <QCoreApplication>
-#include <QDir>
-#include <QFileInfo>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -12,34 +10,9 @@
 #include "CarPlayConfig.h"
 #include "CarPlayEngine.h"
 #include "CarPlayView.h"
+#include "teensy/TeensyGateway.h"
 
 using namespace Qt::StringLiterals;
-
-namespace
-{
-QUrl resolveRuntimeQmlUrl()
-{
-    const QString appDir = QCoreApplication::applicationDirPath();
-    const QDir dir(appDir);
-
-    const QStringList candidates = {
-        dir.absoluteFilePath("AppMain.qml"),
-        dir.absoluteFilePath("../AppMain.qml"),
-        dir.absoluteFilePath("../../AppMain.qml"),
-        dir.absoluteFilePath("../Rx8_HeadUnit/AppMain.qml"),
-        dir.absoluteFilePath("../../Rx8_HeadUnit/AppMain.qml"),
-        dir.absoluteFilePath("../../../Rx8_HeadUnit/AppMain.qml")
-    };
-
-    for (const QString &candidate : candidates) {
-        const QFileInfo fi(candidate);
-        if (fi.exists() && fi.isFile())
-            return QUrl::fromLocalFile(fi.absoluteFilePath());
-    }
-
-    return QUrl(u"qrc:/qt/qml/Main/main.qml"_s);
-}
-}
 
 int main(int argc, char *argv[])
 {
@@ -58,13 +31,13 @@ int main(int argc, char *argv[])
     CarPlayEngine carPlayEngine;
     engine.rootContext()->setContextProperty("carPlayEngine", &carPlayEngine);
 
+    TeensyGateway teensyGateway;
+    engine.rootContext()->setContextProperty("teensyGateway", &teensyGateway);
+
     const QString carPlaySettingsPath = CarPlayConfig::resolveSettingsPath();
     engine.rootContext()->setContextProperty("carPlaySettingsPath", carPlaySettingsPath);
 
-    engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
-    engine.addImportPath(":/");
-
-    const QUrl qmlUrl = resolveRuntimeQmlUrl();
+    const QUrl qmlUrl(u"qrc:/qt/qml/Main/main.qml"_s);
 
     QObject::connect(
         &engine,

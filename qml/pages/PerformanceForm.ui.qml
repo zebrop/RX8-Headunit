@@ -16,16 +16,31 @@ Rectangle {
     width: 1280
     height: 800
 
-    readonly property url engineSource: Qt.resolvedUrl("../../assets/car/13b.svg")
-    readonly property url drivetrainSource: Qt.resolvedUrl("../../assets/car/drivetrain.svg")
-    readonly property url shellWireframeSource: Qt.resolvedUrl("../../assets/car/Shell_Wireframe.svg")
-    readonly property url wheelSource: Qt.resolvedUrl("../../assets/car/wheel.svg")
+    readonly property url engineSource: "qrc:/qt/qml/content/assets/car/13b.svg"
+    readonly property url drivetrainSource: "qrc:/qt/qml/content/assets/car/drivetrain.svg"
+    readonly property url shellWireframeSource: "qrc:/qt/qml/content/assets/car/Shell_Wireframe.svg"
+    readonly property url wheelSource: "qrc:/qt/qml/content/assets/car/wheel.svg"
     readonly property real vehicleSvgRasterScale: 3
     property alias frontLeftWheelItem: frontLeftWheel
     property alias frontRightWheelItem: frontRightWheel
     property alias rearLeftWheelItem: rearLeftWheel
     property alias rearRightWheelItem: rearRightWheel
     property alias vehicleGroupItem: vehicleGroupId
+    property alias coolantValueText: coolantValueText
+    property alias batteryValueText: batteryValueText
+    property alias rpmValueText: rpmValueText
+    property alias tachometerItem: verticalTachometer
+    property alias throttleValueText: throttleValueText
+    property alias throttleFillItem: throttleFill
+    property alias iatValueText: iatValueText
+    property alias speedValueText: speedValueText
+    property alias fuelPercentText: fuelPercentText
+    property alias fuelFillItem: fuelFill
+    property alias instantFuelValueText: instantFuelValueText
+    property alias instantFuelUnitText: instantFuelUnitText
+    property alias averageFuelValueText: averageFuelValueText
+    property alias afrValueText: afrValueText
+    property alias mafValueText: mafValueText
 
     color: Theme.backgroundColor
 
@@ -157,16 +172,17 @@ Rectangle {
             Text {
                 x: 16
                 y: 16
-                text: "Oil Temp"
+                text: "AFR"
                 color: Theme.textMuted
                 font.pixelSize: 16
                 font.bold: true
                 font.family: Constants.font.family
             }
             Text {
+                id: afrValueText
                 x: 58
                 y: 36
-                text: "107°c"
+                text: "--"
                 color: Theme.textPrimary
                 font.pixelSize: 24
                 font.bold: true
@@ -182,16 +198,17 @@ Rectangle {
             Text {
                 x: 16
                 y: 94
-                text: "Oil Pressure"
+                text: "MAF"
                 color: Theme.textMuted
                 font.pixelSize: 16
                 font.bold: true
                 font.family: Constants.font.family
             }
             Text {
+                id: mafValueText
                 x: 58
                 y: 114
-                text: "4.6 bar"
+                text: "-- g/s"
                 color: Theme.textPrimary
                 font.pixelSize: 23
                 font.bold: true
@@ -214,9 +231,10 @@ Rectangle {
                 font.family: Constants.font.family
             }
             Text {
+                id: coolantValueText
                 x: 58
                 y: 192
-                text: "91°c"
+                text: "--°c"
                 color: Theme.textPrimary
                 font.pixelSize: 24
                 font.bold: true
@@ -239,9 +257,10 @@ Rectangle {
                 font.family: Constants.font.family
             }
             Text {
+                id: batteryValueText
                 x: 58
                 y: 268
-                text: "14.0v"
+                text: "--v"
                 color: Theme.textPrimary
                 font.pixelSize: 22
                 font.bold: true
@@ -260,7 +279,7 @@ Rectangle {
             border.color: Theme.accent
             border.width: 3
 
-            property real currentRpm: 6500
+            property real currentRpm: 0
             readonly property real maxRpm: 10000
             readonly property real redlineRpm: 8500
             readonly property real rpmPercent: currentRpm / maxRpm
@@ -423,11 +442,12 @@ Rectangle {
             }
 
             Text {
+                id: rpmValueText
                 x: 10
                 y: 518
                 width: 92
                 height: 28
-                text: "6500"
+                text: "0"
                 color: Theme.textPrimary
                 font.pixelSize: 23
                 font.bold: true
@@ -469,9 +489,10 @@ Rectangle {
                 font.family: Constants.font.family
             }
             Text {
+                id: throttleValueText
                 x: 228
                 y: 14
-                text: "78%"
+                text: "--%"
                 color: Theme.textPrimary
                 font.pixelSize: 16
                 font.bold: true
@@ -485,9 +506,10 @@ Rectangle {
                 color: "#33ffffff"
             }
             Rectangle {
+                id: throttleFill
                 x: 18
                 y: 42
-                width: 187
+                width: 0
                 height: 10
                 radius: 5
                 color: Theme.accent
@@ -568,9 +590,10 @@ Rectangle {
                 font.family: Constants.font.family
             }
             Text {
+                id: iatValueText
                 x: 208
                 y: 52
-                text: "42°c"
+                text: "--°c"
                 color: Theme.textPrimary
                 font.pixelSize: 19
                 font.bold: true
@@ -620,10 +643,11 @@ Rectangle {
             }
 
             Text {
+                id: speedValueText
                 x: 36
                 y: 35
                 color: Theme.textPrimary
-                text: "179"
+                text: "0"
                 font.pixelSize: 40
                 font.bold: true
             }
@@ -669,9 +693,10 @@ Rectangle {
                 color: "#44000000"
             }
             Rectangle {
+                id: fuelFill
                 x: 63
                 y: 8
-                width: 89
+                width: 0
                 height: 21
                 radius: 5
                 color: Theme.accent
@@ -694,14 +719,16 @@ Rectangle {
                 font.family: Constants.font.family
             }
             Text {
+                id: instantFuelValueText
                 x: 181
                 y: 40
-                text: "9.1"
+                text: "--"
                 color: Theme.textPrimary
                 font.pixelSize: 26
                 font.bold: true
             }
             Text {
+                id: instantFuelUnitText
                 x: 170
                 y: 69
                 text: "L/100km"
@@ -726,9 +753,10 @@ Rectangle {
                 font.family: Constants.font.family
             }
             Text {
+                id: averageFuelValueText
                 x: 180
                 y: 88
-                text: "7.2"
+                text: "--"
                 color: Theme.textPrimary
                 font.pixelSize: 26
                 font.bold: true
@@ -765,11 +793,12 @@ Rectangle {
                 font.pixelSize: 14
             }
             Text {
+                id: fuelPercentText
                 x: 110
                 y: 8
                 width: 42
                 height: 21
-                text: "55%"
+                text: "--%"
                 color: Theme.textPrimary
                 font.pixelSize: 18
                 font.bold: true

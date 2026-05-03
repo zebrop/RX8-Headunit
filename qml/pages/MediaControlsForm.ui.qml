@@ -2,7 +2,6 @@ import QtQuick 6.8
 import QtQuick.Controls 6.8
 import QtQuick.Effects
 import Rx8_HeadUnit
-import "../components"
 
 Rectangle {
     id: root
@@ -22,7 +21,7 @@ Rectangle {
     property int currentPresetIndex: 0
     property string customPresetName: "Custom"
 
-    property url interiorSource: Qt.resolvedUrl("../../assets/car/interior.png")
+    property url interiorSource: "qrc:/qt/qml/content/assets/car/interior.png"
 
     Image {
         id: pageBackground

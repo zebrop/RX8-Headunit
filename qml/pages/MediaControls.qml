@@ -12,7 +12,7 @@ MediaControlsForm {
     property bool isLoadingState: true
     property bool isApplyingPreset: false
 
-    property url interiorSource: Qt.resolvedUrl("../../assets/car/interior.png")
+    property url interiorSource: "qrc:/qt/qml/content/assets/car/interior.png"
 
     QtCore.Settings {
         id: mediaSettings

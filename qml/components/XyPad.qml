@@ -65,7 +65,7 @@ Item {
         anchors.topMargin: 4
         anchors.bottomMargin: 4
 
-        source: Qt.resolvedUrl("../../assets/car/interior.png")
+        source: "qrc:/qt/qml/content/assets/car/interior.png"
         fillMode: Image.PreserveAspectFit
         smooth: true
         mipmap: true
