@@ -58,6 +58,10 @@ set_source_files_properties(../assets/car/interior.png
     PROPERTIES QT_RESOURCE_ALIAS assets/car/interior.png
 )
 
+set_source_files_properties(../assets/car/Mazda_RX8.glb
+    PROPERTIES QT_RESOURCE_ALIAS assets/car/Mazda_RX8.glb
+)
+
 set_source_files_properties(../assets/icons/AC.svg
     PROPERTIES QT_RESOURCE_ALIAS assets/icons/AC.svg
 )
@@ -155,6 +159,7 @@ qt6_add_qml_module(content
         ../assets/car/drivetrain.svg
         ../assets/car/wheel.svg
         ../assets/car/interior.png
+        ../assets/car/Mazda_RX8.glb
         ../assets/icons/AC.svg
         ../assets/icons/Auto.svg
         ../assets/icons/Demist.svg

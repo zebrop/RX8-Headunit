@@ -17,8 +17,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(BUILD_QDS_COMPONENTS OFF CACHE BOOL "Build Qt Design Studio components")
 option(LINK_INSIGHT "Link Qt Insight Tracker library" OFF)
 
-find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Multimedia)
+find_package(QT NAMES Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Quick3D Quick3DAssetUtils Multimedia)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Quick3D Quick3DAssetUtils Multimedia)
 
 qt_policy(SET QTP0001 NEW)
 qt_policy(SET QTP0004 NEW)
@@ -160,6 +160,8 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Quick
+    Qt6::Quick3D
+    Qt6::Quick3DAssetUtils
     Qt6::Qml
     Qt6::Multimedia
 
