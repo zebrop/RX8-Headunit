@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SRP1038AA-100M
+D Shielded Power Inductor, 10uH
+K
+F https://www.bourns.com/docs/product-datasheets/srp1038aa.pdf?sfvrsn=2d1249f6_15
+$ENDCMP
+#
+#End Doc Library

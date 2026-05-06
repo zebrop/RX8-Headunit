@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SM8S24AHE3-TP
+D 38.9V Clamp 170A Ipp Tvs Diode Surface Mount DO-218AB
+K
+F https://www.mccsemi.com/pdf/Products/SM8S10AHE3-SM8S43CAHE3(DO-218AB).pdf
+$ENDCMP
+#
+#End Doc Library

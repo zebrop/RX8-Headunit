@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP E-L9637D013TR
+D Monolithic bus driver with ISO 9141 interface
+K
+F https://www.st.com/resource/en/datasheet/l9637.pdf
+$ENDCMP
+#
+#End Doc Library
